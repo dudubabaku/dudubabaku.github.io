@@ -1,3248 +1,2135 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111827">
-<title>flowday</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flowday</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-:root {
-    --navy: #101827;
-    --navy-2: #172238;
-    --black: #111318;
+    :root {
+      --navy: #172033;
+      --navy-2: #222d42;
+      --text: #1d2430;
+      --muted: #8b929d;
+      --line: #e8eaee;
+      --soft: #f7f8fa;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(20, 28, 43, 0.08);
+    }
 
-    --bg: #f5f7fb;
-    --white: #ffffff;
-
-    --gray-900: #30343b;
-    --gray-700: #626975;
-    --gray-500: #9298a3;
-    --gray-400: #adb2ba;
-    --gray-300: #d7dae0;
-    --gray-200: #e5e8ed;
-    --gray-100: #f0f2f5;
-
-    --shadow: 0 10px 35px rgba(15, 23, 42, .065);
-    --shadow-hover: 0 18px 45px rgba(15, 23, 42, .11);
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: "Inter", "Noto Sans KR", sans-serif;
-    background: #111827;
-    color: var(--black);
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-}
-
-button,
-input {
-    font: inherit;
-}
-
-button {
-    border: none;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =====================================================
-   GLOBAL BACKGROUND
-===================================================== */
-
-.page-background {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    overflow: hidden;
-    background:
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        "Segoe UI",
+        sans-serif;
+      color: var(--text);
+      background:
         radial-gradient(
-            circle at 12% 20%,
-            rgba(103, 126, 185, .55),
-            transparent 28%
+          circle at 15% 20%,
+          rgba(225, 229, 237, 0.45),
+          transparent 30%
         ),
         radial-gradient(
-            circle at 87% 70%,
-            rgba(107, 77, 160, .42),
-            transparent 30%
+          circle at 85% 80%,
+          rgba(235, 237, 241, 0.55),
+          transparent 32%
         ),
-        radial-gradient(
-            circle at 50% 105%,
-            rgba(50, 83, 145, .5),
-            transparent 34%
-        ),
-        linear-gradient(
-            125deg,
-            #0b1220 0%,
-            #141d31 38%,
-            #171c32 67%,
-            #0b1220 100%
-        );
-}
-
-.page-background::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: .55;
-    background-image:
-        radial-gradient(circle, rgba(255,255,255,.75) 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(255,255,255,.4) 1px, transparent 1.5px);
-    background-size: 145px 145px, 230px 230px;
-    background-position: 30px 20px, 100px 80px;
-}
-
-.page-background::after {
-    content: "";
-    position: absolute;
-    width: 650px;
-    height: 650px;
-    right: -260px;
-    top: -210px;
-    border-radius: 50%;
-    background: rgba(125, 147, 206, .14);
-    filter: blur(80px);
-}
-
-
-/* =====================================================
-   MAIN APP SHELL
-===================================================== */
-
-.app-shell {
-    min-height: 100vh;
-    margin: 0 auto;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(249,250,252,.985),
-            rgba(245,247,250,.985)
-        );
-    box-shadow:
-        0 0 80px rgba(0,0,0,.13);
-}
-
-
-/* =====================================================
-   LANDING
-===================================================== */
-
-.landing {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.landing-inner {
-    width: min(1280px, calc(100% - 80px));
-    margin: 0 auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 55px 0 42px;
-}
-
-.brand {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    font-size: 21px;
-    font-weight: 800;
-    letter-spacing: -0.06em;
-}
-
-.brand-flow {
-    color: var(--black);
-}
-
-.brand-day {
-    color: #8b919b;
-}
-
-.hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(410px, .8fr);
-    align-items: center;
-    gap: clamp(70px, 10vw, 150px);
-    margin-top: 65px;
-}
-
-.hero-copy {
-    max-width: 650px;
-}
-
-.hero-title {
-    font-size: clamp(52px, 6vw, 82px);
-    line-height: 1.04;
-    letter-spacing: -0.08em;
-    font-weight: 800;
-}
-
-.hero-title span {
-    display: block;
-}
-
-.hero-description {
-    margin-top: 26px;
-    color: var(--gray-700);
-    font-size: 17px;
-    line-height: 1.7;
-    letter-spacing: -0.035em;
-}
-
-.start-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: min(370px, 100%);
-    margin-top: 36px;
-}
-
-.primary-btn,
-.google-btn {
-    width: 100%;
-    height: 56px;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    transition: .2s ease;
-}
-
-.primary-btn {
-    background: var(--black);
-    color: white;
-    box-shadow: 0 10px 25px rgba(17,19,24,.17);
-}
-
-.primary-btn:hover,
-.google-btn:hover {
-    transform: translateY(-2px);
-}
-
-.primary-btn:hover {
-    box-shadow: 0 15px 32px rgba(17,19,24,.22);
-}
-
-.google-btn {
-    background: rgba(255,255,255,.82);
-    color: var(--black);
-    border: 1px solid var(--gray-200);
-    box-shadow: var(--shadow);
-}
-
-.google-btn:hover {
-    box-shadow: var(--shadow-hover);
-}
-
-.google-icon {
-    width: 18px;
-    height: 18px;
-}
-
-
-/* =====================================================
-   HERO MOCKUP
-===================================================== */
-
-.hero-visual {
-    position: relative;
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.visual-glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            circle,
-            rgba(165,176,201,.58),
-            rgba(217,221,230,.15) 60%,
-            transparent 72%
-        );
-    filter: blur(3px);
-}
-
-.mockup {
-    position: relative;
-    width: 325px;
-    padding: 9px;
-    border-radius: 40px;
-    background: #15171c;
-    transform: rotate(3deg);
-    box-shadow:
-        0 42px 80px rgba(20,24,32,.21),
-        0 15px 30px rgba(20,24,32,.1);
-}
-
-.mockup-screen {
-    min-height: 500px;
-    padding: 23px;
-    border-radius: 32px;
-    background: #f5f7fa;
-    overflow: hidden;
-}
-
-.mockup-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.mockup-date {
-    color: var(--gray-500);
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.mockup-title {
-    margin-top: 26px;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.06em;
-}
-
-.mockup-card {
-    margin-top: 18px;
-    padding: 17px;
-    border-radius: 17px;
-    background: white;
-    border: 1px solid var(--gray-200);
-    box-shadow: var(--shadow);
-}
-
-.mockup-time {
-    color: var(--gray-500);
-    font-size: 9px;
-    font-weight: 700;
-}
-
-.mockup-plan {
-    margin-top: 7px;
-    font-size: 14px;
-    font-weight: 800;
-}
-
-.mockup-task {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-    color: var(--gray-700);
-    font-size: 10px;
-}
-
-.mockup-check {
-    width: 14px;
-    height: 14px;
-    border: 1px solid #cdd1d7;
-    border-radius: 4px;
-    background: white;
-}
-
-
-/* =====================================================
-   QUOTE
-===================================================== */
-
-.quote-area {
-    margin-top: 50px;
-    max-width: 670px;
-}
-
-.quote-box {
-    position: relative;
-    padding: 17px 42px 17px 27px;
-}
-
-.quote-open,
-.quote-close {
-    position: absolute;
-    color: #c7ccd4;
-    font-family: Georgia, serif;
-    font-size: 38px;
-    line-height: 1;
-}
-
-.quote-open {
-    left: 0;
-    top: 0;
-}
-
-.quote-close {
-    right: 0;
-    bottom: -3px;
-}
-
-.quote-text {
-    color: #777d87;
-    font-family: Georgia, "Noto Sans KR", serif;
-    font-size: 15px;
-    line-height: 1.75;
-    font-style: italic;
-    letter-spacing: -0.02em;
-}
-
-.quote-author {
-    margin-top: 7px;
-    color: #a1a6ae;
-    font-size: 11px;
-}
-
-.quote-change {
-    width: 34px;
-    height: 34px;
-    margin-top: 8px;
-    border-radius: 50%;
-    background: transparent;
-    color: #8e949d;
-    display: grid;
-    place-items: center;
-    transition: .25s ease;
-}
-
-.quote-change:hover {
-    color: var(--black);
-    background: var(--gray-100);
-}
-
-.quote-change:active {
-    transform: rotate(180deg);
-}
-
-.quote-change svg {
-    width: 17px;
-    height: 17px;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-.landing-footer {
-    width: min(1280px, calc(100% - 80px));
-    margin: 0 auto;
-    padding: 18px 0 25px;
-    border-top: 1px solid rgba(215,218,224,.8);
-    color: #a1a6ae;
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   SCHEDULE
-===================================================== */
-
-.schedule-page {
-    min-height: 100vh;
-    padding-bottom: 110px;
-}
-
-.schedule-container {
-    width: min(1280px, calc(100% - 80px));
-    margin: 0 auto;
-    padding-top: 27px;
-}
-
-.schedule-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.back-btn {
-    width: auto;
-    height: auto;
-    padding: 4px;
-    background: transparent;
-    color: var(--navy);
-    font-size: 30px;
-    line-height: 1;
-    font-family: Arial, sans-serif;
-    font-weight: 400;
-    transition: transform .2s ease;
-}
-
-.back-btn:hover {
-    transform: translateX(-3px);
-}
-
-.profile-btn {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 4px 2px;
-    background: transparent;
-    color: #757b85;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.profile-letter {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--black);
-    color: white;
-    display: grid;
-    place-items: center;
-    font-size: 9px;
-    font-weight: 800;
-}
-
-
-/* =====================================================
-   DATE HEADER
-===================================================== */
-
-.date-header {
-    margin-top: 39px;
-}
-
-.date-label {
-    color: var(--gray-500);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .04em;
-}
-
-.date-title-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 6px;
-}
-
-.date-title {
-    font-size: clamp(40px, 5vw, 56px);
-    font-weight: 800;
-    letter-spacing: -0.07em;
-}
-
-.calendar-button {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: transparent;
-    color: #7c828c;
-    display: grid;
-    place-items: center;
-    transition: .2s ease;
-}
-
-.calendar-button:hover {
-    background: var(--gray-100);
-    color: var(--black);
-}
-
-.calendar-button svg {
-    width: 22px;
-    height: 22px;
-}
-
-
-/* =====================================================
-   WEEK
-===================================================== */
-
-.week-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 28px;
-}
-
-.week-label {
-    color: #6e747e;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.week-controls {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.week-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: transparent;
-    color: #777d87;
-    font-size: 18px;
-    display: grid;
-    place-items: center;
-    transition: .2s ease;
-}
-
-.week-btn:hover {
-    background: var(--gray-100);
-    color: var(--black);
-}
-
-.week-calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.date-item {
-    min-width: 0;
-    height: 82px;
-    border-radius: 18px;
-    background: rgba(255,255,255,.88);
-    border: 1px solid var(--gray-200);
-    color: #8a9099;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    transition: .2s ease;
-}
-
-.date-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.date-item.active {
-    color: white;
-    background: var(--black);
-    border-color: var(--black);
-    box-shadow: 0 10px 26px rgba(17,19,24,.17);
-}
-
-.date-week {
-    font-size: 10px;
-    font-weight: 600;
-}
-
-.date-number {
-    font-size: 18px;
-    font-weight: 800;
-}
-
-
-/* =====================================================
-   PLAN LIST
-===================================================== */
-
-.plan-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 27px;
-}
-
-.empty-state {
-    min-height: 250px;
-    padding: 55px 25px;
-    border: 1px dashed #d4d8df;
-    border-radius: 25px;
-    background: rgba(255,255,255,.75);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.empty-state strong {
-    display: block;
-    color: #555b65;
-    font-size: 15px;
-    margin-bottom: 8px;
-}
-
-.empty-state p {
-    color: #9ba0a8;
-    font-size: 12px;
-}
-
-.plan-card {
-    position: relative;
-    padding: 25px 29px;
-    border: 1px solid var(--gray-200);
-    border-radius: 23px;
-    background: rgba(255,255,255,.92);
-    box-shadow: var(--shadow);
-    transition: .2s ease;
-}
-
-.plan-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-}
-
-.plan-time {
-    color: #9298a2;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.plan-title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
-    margin-top: 7px;
-}
-
-.plan-title {
-    color: #252930;
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: -0.045em;
-}
-
-.delete-plan {
-    width: 29px;
-    height: 29px;
-    border-radius: 9px;
-    background: var(--gray-100);
-    color: #91969e;
-    display: grid;
-    place-items: center;
-    transition: .2s ease;
-}
-
-.delete-plan:hover {
-    background: #e5e7ea;
-    color: var(--black);
-}
-
-.delete-plan svg {
-    width: 14px;
-    height: 14px;
-}
-
-.task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.task-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 31px;
-    cursor: pointer;
-}
-
-.task-checkbox {
-    appearance: none;
-    width: 21px;
-    height: 21px;
-    flex: 0 0 21px;
-    border: 1.5px solid #cdd1d8;
-    border-radius: 7px;
-    background: white;
-    position: relative;
-    transition: .2s ease;
-}
-
-.task-checkbox:checked {
-    background: var(--black);
-    border-color: var(--black);
-}
-
-.task-checkbox:checked::after {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 10px;
-    left: 6px;
-    top: 3px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.task-text {
-    color: #353a42;
-    font-size: 16px;
-    line-height: 1.45;
-    font-weight: 500;
-    letter-spacing: -0.025em;
-}
-
-.task-item.completed .task-text {
-    color: #a4a9b1;
-    text-decoration: line-through;
-}
-
-.task-minutes {
-    margin-left: auto;
-    color: #9ba0a8;
-    font-size: 11px;
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   FAB
-===================================================== */
-
-.fab {
-    position: fixed;
-    right: max(30px, calc((100vw - 1280px) / 2));
-    bottom: 29px;
-    width: 58px;
-    height: 58px;
-    border-radius: 19px;
-    background: var(--black);
-    color: white;
-    display: grid;
-    place-items: center;
-    box-shadow: 0 12px 30px rgba(17,19,24,.22);
-    transition: .2s ease;
-    z-index: 20;
-}
-
-.fab:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 34px rgba(17,19,24,.28);
-}
-
-.fab svg {
-    width: 22px;
-    height: 22px;
-}
-
-
-/* =====================================================
-   MODALS
-===================================================== */
-
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    padding: 20px;
-    background: rgba(15,18,23,.43);
-    backdrop-filter: blur(9px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn .2s ease;
-}
-
-.modal {
-    width: min(500px,100%);
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    padding: 29px;
-    border-radius: 27px;
-    background: white;
-    box-shadow: 0 30px 80px rgba(10,13,18,.22);
-    animation: modalIn .25s ease;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.modal-title {
-    color: #181b20;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -.05em;
-}
-
-.modal-close {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: var(--gray-100);
-    color: #777d86;
-    display: grid;
-    place-items: center;
-}
-
-.modal-close svg {
-    width: 16px;
-    height: 16px;
-}
-
-.form-group {
-    margin-top: 22px;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #777d87;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.form-input {
-    width: 100%;
-    height: 47px;
-    padding: 0 13px;
-    border: 1px solid var(--gray-200);
-    border-radius: 12px;
-    outline: none;
-    background: #fafbfc;
-    color: var(--black);
-    transition: .2s ease;
-}
-
-.form-input:focus {
-    border-color: #b5bac2;
-    box-shadow: 0 0 0 4px #f0f1f3;
-}
-
-.time-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-}
-
-.task-input-row {
-    display: flex;
-    gap: 7px;
-}
-
-.task-input {
-    flex: 1;
-}
-
-.minutes-input {
-    width: 82px;
-}
-
-.add-task-btn {
-    width: 47px;
-    height: 47px;
-    flex: 0 0 47px;
-    border-radius: 12px;
-    background: var(--black);
-    color: white;
-    display: grid;
-    place-items: center;
-}
-
-.add-task-btn svg {
-    width: 17px;
-    height: 17px;
-}
-
-.modal-task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    margin-top: 11px;
-}
-
-.modal-task {
-    min-height: 43px;
-    padding: 9px 11px;
-    border-radius: 11px;
-    background: #f4f5f7;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-.modal-task-text {
-    flex: 1;
-    color: #454a53;
-    font-size: 13px;
-}
-
-.remove-task {
-    width: 24px;
-    height: 24px;
-    border-radius: 7px;
-    background: transparent;
-    color: #9499a1;
-}
-
-.modal-submit {
-    width: 100%;
-    height: 52px;
-    margin-top: 24px;
-    border-radius: 14px;
-    background: var(--black);
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   DATE PICKER
-===================================================== */
-
-.date-picker-modal {
-    width: min(370px,100%);
-    padding: 25px;
-    border-radius: 25px;
-    background: white;
-    box-shadow: 0 30px 80px rgba(10,13,18,.22);
-}
-
-.date-picker-title {
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -.04em;
-}
-
-.date-picker-input {
-    margin-top: 20px;
-}
-
-
-/* =====================================================
-   DELETE CONFIRM
-===================================================== */
-
-.confirm-modal {
-    width: min(390px,100%);
-    padding: 30px;
-    border-radius: 25px;
-    background: white;
-    text-align: center;
-    box-shadow: 0 30px 80px rgba(10,13,18,.22);
-    animation: modalIn .25s ease;
-}
-
-.confirm-icon {
-    width: 47px;
-    height: 47px;
-    margin: 0 auto 17px;
-    border-radius: 15px;
-    background: var(--gray-100);
-    color: #555b65;
-    display: grid;
-    place-items: center;
-}
-
-.confirm-icon svg {
-    width: 21px;
-    height: 21px;
-}
-
-.confirm-title {
-    font-size: 19px;
-    font-weight: 800;
-    letter-spacing: -.04em;
-}
-
-.confirm-description {
-    margin-top: 7px;
-    color: #8b919a;
-    font-size: 12px;
-}
-
-.confirm-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-    margin-top: 23px;
-}
-
-.confirm-btn {
-    height: 47px;
-    border-radius: 13px;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.confirm-yes {
-    background: var(--black);
-    color: white;
-}
-
-.confirm-no {
-    background: var(--gray-100);
-    color: #555b64;
-}
-
-
-/* =====================================================
-   ANIMATION
-===================================================== */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+        #fbfbfc;
+      min-height: 100vh;
     }
 
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes modalIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px) scale(.98);
+    button,
+    input {
+      font: inherit;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-/* =====================================================
-   DESKTOP
-===================================================== */
-
-@media (min-width: 1200px) {
-
-    .app-shell {
-        width: min(1440px, calc(100% - 120px));
-        min-height: 100vh;
+    button {
+      cursor: pointer;
+      border: 0;
+      background: none;
     }
 
-    .landing-inner,
-    .landing-footer,
-    .schedule-container {
-        width: min(1220px, calc(100% - 80px));
+    /* =========================
+       LANDING
+    ========================= */
+
+    .landing-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 850px) {
-
-    .page-background {
-        background:
-            radial-gradient(
-                circle at 10% 15%,
-                rgba(92,113,165,.35),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 90% 80%,
-                rgba(101,74,145,.3),
-                transparent 30%
-            ),
-            linear-gradient(
-                140deg,
-                #0d1423,
-                #182238,
-                #101827
-            );
+    .landing-page::before {
+      content: "FLOW";
+      position: absolute;
+      left: -55px;
+      bottom: 80px;
+      font-size: clamp(100px, 17vw, 250px);
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      color: rgba(25, 34, 51, 0.025);
+      pointer-events: none;
+      user-select: none;
     }
 
-    .app-shell {
-        width: 100%;
+    .landing-page::after {
+      content: "DAY";
+      position: absolute;
+      right: -35px;
+      top: 20%;
+      font-size: clamp(100px, 17vw, 250px);
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      color: rgba(25, 34, 51, 0.02);
+      pointer-events: none;
+      user-select: none;
     }
 
-    .landing-inner {
-        width: min(100% - 42px, 620px);
-        padding-top: 38px;
+    .landing-header {
+      width: min(1280px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
     }
 
-    .hero {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        margin-top: 60px;
+    .logo {
+      font-size: 22px;
+      font-weight: 750;
+      letter-spacing: -0.05em;
+    }
+
+    .logo .day {
+      color: #a2a7af;
+      font-weight: 500;
+    }
+
+    .landing-main {
+      width: min(1280px, calc(100% - 48px));
+      margin: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
+      gap: 90px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      padding: 45px 0 65px;
     }
 
     .hero-copy {
-        max-width: none;
+      padding-left: clamp(0px, 3vw, 50px);
     }
 
-    .hero-visual {
-        height: 390px;
-    }
-
-    .mockup {
-        width: 275px;
-    }
-
-    .mockup-screen {
-        min-height: 430px;
-    }
-
-    .quote-area {
-        margin-top: 30px;
-    }
-
-    .landing-footer {
-        width: min(100% - 42px, 620px);
-    }
-
-    .schedule-container {
-        width: min(100% - 36px, 700px);
-    }
-
-    .fab {
-        right: 20px;
-    }
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 560px) {
-
-    .page-background::before {
-        opacity: .22;
-    }
-
-    .landing-inner {
-        width: calc(100% - 32px);
-        padding: 27px 0 32px;
-    }
-
-    .brand {
-        font-size: 18px;
-    }
-
-    .hero {
-        margin-top: 54px;
-        gap: 28px;
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: 0.14em;
+      color: #969ca6;
+      margin-bottom: 20px;
     }
 
     .hero-title {
-        font-size: clamp(42px,13vw,57px);
+      font-size: clamp(48px, 6vw, 82px);
+      line-height: 1.04;
+      letter-spacing: -0.065em;
+      font-weight: 800;
+      margin-bottom: 28px;
     }
 
     .hero-description {
-        margin-top: 18px;
-        font-size: 14px;
+      color: #747b86;
+      line-height: 1.8;
+      font-size: 15px;
+      margin-bottom: 36px;
     }
 
-    .start-buttons {
-        margin-top: 27px;
+    .start-button {
+      background: var(--navy);
+      color: white;
+      height: 54px;
+      padding: 0 30px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 650;
+      transition: 0.2s ease;
+      box-shadow: 0 10px 25px rgba(23, 32, 51, 0.14);
     }
 
-    .hero-visual {
-        height: 310px;
+    .start-button:hover {
+      transform: translateY(-2px);
+      background: #111827;
+      box-shadow: 0 14px 30px rgba(23, 32, 51, 0.18);
     }
 
-    .visual-glow {
-        width: 250px;
-        height: 250px;
+    .google-button {
+      margin-top: 12px;
+      height: 48px;
+      padding: 0 20px;
+      border: 1px solid #e4e6ea;
+      background: rgba(255,255,255,0.75);
+      border-radius: 13px;
+      color: #555c67;
+      font-size: 13px;
+      transition: 0.2s ease;
+    }
+
+    .google-button:hover {
+      background: white;
+      border-color: #d6d9df;
+    }
+
+    .google-icon {
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* Mockup */
+
+    .mockup-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative;
     }
 
     .mockup {
-        width: 230px;
-        padding: 8px;
-        border-radius: 30px;
+      width: min(100%, 470px);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(220,223,229,0.8);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 25px;
+      transform: rotate(1deg);
     }
 
-    .mockup-screen {
-        min-height: 360px;
-        padding: 16px;
-        border-radius: 23px;
+    .mockup-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
-    .mockup-title {
-        margin-top: 19px;
-        font-size: 20px;
+    .mockup-logo {
+      font-size: 15px;
+      font-weight: 750;
     }
+
+    .mockup-logo span {
+      color: #a5aab2;
+      font-weight: 500;
+    }
+
+    .mockup-date {
+      font-size: 12px;
+      color: #9aa0aa;
+    }
+
+    .mockup-week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    .mock-day {
+      border: 1px solid #edf0f3;
+      border-radius: 10px;
+      padding: 10px 2px;
+      text-align: center;
+      color: #9298a2;
+      font-size: 10px;
+    }
+
+    .mock-day strong {
+      display: block;
+      color: #555d69;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    .mock-day.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .mock-day.active strong {
+      color: white;
+    }
+
+    .mock-card {
+      height: 92px;
+      border: 1px solid #eceef2;
+      border-radius: 15px;
+      padding: 17px;
+      margin-top: 10px;
+    }
+
+    .mock-line {
+      width: 28%;
+      height: 8px;
+      background: #dfe2e7;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .mock-line.long {
+      width: 62%;
+      background: #f0f1f3;
+    }
+
+    /* Quote */
 
     .quote-area {
-        margin-top: 20px;
+      width: min(640px, calc(100% - 48px));
+      margin: 0 auto 25px;
+      position: relative;
+      text-align: center;
+      min-height: 76px;
+      padding: 8px 42px;
+      z-index: 2;
+    }
+
+    .quote-mark {
+      position: absolute;
+      font-family: Georgia, serif;
+      font-size: 30px;
+      color: #c9cdd3;
+      line-height: 1;
+    }
+
+    .quote-mark.open {
+      top: 0;
+      left: 10px;
+    }
+
+    .quote-mark.close {
+      right: 10px;
+      bottom: 0;
     }
 
     .quote-text {
-        font-size: 13px;
+      font-size: 12px;
+      color: #8b919a;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    .quote-author {
+      display: block;
+      margin-top: 5px;
+      color: #adb1b8;
+      font-size: 10px;
+      font-style: normal;
+    }
+
+    .quote-refresh {
+      position: absolute;
+      right: -34px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 27px;
+      height: 27px;
+      color: #9aa0a9;
+      transition: transform 0.25s ease;
+    }
+
+    .quote-refresh:hover {
+      transform: translateY(-50%) rotate(180deg);
+      color: var(--navy);
+    }
+
+    .quote-refresh svg {
+      width: 17px;
+      height: 17px;
     }
 
     .landing-footer {
-        width: calc(100% - 32px);
+      text-align: center;
+      padding: 20px 0 26px;
+      color: #b1b5bc;
+      font-size: 10px;
+      position: relative;
+      z-index: 2;
     }
 
-    .schedule-container {
-        width: calc(100% - 28px);
-        padding-top: 17px;
+    /* =========================
+       APP
+    ========================= */
+
+    .app-page {
+      display: none;
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(
+          circle at 8% 10%,
+          rgba(226, 230, 237, 0.35),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 92% 90%,
+          rgba(235, 237, 241, 0.42),
+          transparent 28%
+        ),
+        #fafbfc;
+      overflow: hidden;
     }
 
-    .date-header {
-        margin-top: 28px;
+    .app-page::before {
+      content: "FLOW";
+      position: fixed;
+      left: -100px;
+      bottom: 30px;
+      font-size: 210px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      color: rgba(25, 34, 51, 0.018);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .app-page::after {
+      content: "DAY";
+      position: fixed;
+      right: -70px;
+      top: 110px;
+      font-size: 210px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.08em;
+      color: rgba(25, 34, 51, 0.016);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .app-header {
+      width: min(1420px, calc(100% - 56px));
+      margin: 0 auto;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 5;
+    }
+
+    .back-button {
+      color: var(--navy);
+      font-size: 30px;
+      font-weight: 300;
+      line-height: 1;
+      width: 32px;
+      text-align: left;
+    }
+
+    .back-button:hover {
+      transform: translateX(-2px);
+    }
+
+    .profile {
+      color: #9a9fa8;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .profile-g {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #eceef1;
+      color: #717782;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .app-content {
+      width: min(1240px, calc(100% - 56px));
+      margin: 0 auto;
+      padding: 30px 0 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .date-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 28px;
+    }
+
+    .date-title-small {
+      color: #9ba0a9;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      margin-bottom: 7px;
+    }
+
+    .date-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .date-title {
-        font-size: 38px;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1;
+      font-weight: 780;
+      letter-spacing: -0.06em;
     }
 
-    .week-row {
-        margin-top: 20px;
+    .calendar-button {
+      width: 30px;
+      height: 30px;
+      color: #858b95;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      transition: 0.2s ease;
     }
 
-    .week-calendar {
-        gap: 4px;
+    .calendar-button:hover {
+      background: #eef0f3;
+      color: var(--navy);
     }
 
-    .date-item {
-        height: 66px;
-        border-radius: 13px;
+    .calendar-button svg {
+      width: 18px;
+      height: 18px;
     }
 
-    .date-week {
-        font-size: 9px;
+    #datePicker {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .date-number {
-        font-size: 15px;
+    .week-range {
+      color: #9da2ab;
+      font-size: 11px;
+      margin-bottom: 8px;
     }
 
-    .plan-list {
-        margin-top: 18px;
+    .week-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .week-nav {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #e5e7eb;
+      background: rgba(255,255,255,0.75);
+      border-radius: 10px;
+      color: #707783;
+      font-size: 18px;
+      transition: 0.2s ease;
+    }
+
+    .week-nav:hover {
+      background: white;
+      border-color: #d9dce1;
+      color: var(--navy);
+    }
+
+    /* Week */
+
+    .week-section {
+      margin-bottom: 34px;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .day-button {
+      min-width: 0;
+      height: 82px;
+      border: 1px solid #e6e8ec;
+      background: rgba(255,255,255,0.72);
+      border-radius: 15px;
+      color: #9298a2;
+      transition: 0.2s ease;
+      position: relative;
+    }
+
+    .day-button:hover {
+      border-color: #d6dae0;
+      background: white;
+      transform: translateY(-1px);
+    }
+
+    .day-button .weekday {
+      display: block;
+      font-size: 10px;
+      margin-bottom: 9px;
+    }
+
+    .day-button .day-number {
+      display: block;
+      font-size: 19px;
+      color: #505865;
+      font-weight: 600;
+    }
+
+    .day-button.today::after {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #a5aab2;
+      position: absolute;
+      bottom: 9px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .day-button.selected {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #cdd2da;
+      box-shadow: 0 9px 20px rgba(23,32,51,0.13);
+    }
+
+    .day-button.selected .day-number {
+      color: white;
+    }
+
+    .day-button.selected.today::after {
+      background: white;
+    }
+
+    /* Main plans */
+
+    .plans-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 13px;
+    }
+
+    .plans-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .plans-count {
+      color: #a0a5ae;
+      font-size: 10px;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      min-height: 270px;
+      border: 1px dashed #dfe2e7;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #a1a6ae;
+    }
+
+    .empty-state strong {
+      display: block;
+      color: #777e88;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state span {
+      font-size: 11px;
     }
 
     .plan-card {
-        padding: 20px 18px;
-        border-radius: 20px;
+      background: rgba(255,255,255,0.88);
+      border: 1px solid #e8e9ed;
+      border-radius: 19px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(30,38,52,0.035);
+      transition: 0.2s ease;
     }
 
-    .plan-title {
-        font-size: 18px;
+    .plan-card:hover {
+      box-shadow: 0 13px 35px rgba(30,38,52,0.07);
+      transform: translateY(-2px);
     }
 
-    .task-text {
-        font-size: 15px;
+    .plan-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 17px;
     }
 
-    .task-checkbox {
-        width: 20px;
-        height: 20px;
-        flex-basis: 20px;
+    .plan-time {
+      font-size: 12px;
+      font-weight: 700;
+      color: #5e6672;
     }
 
-    .fab {
-        right: 17px;
-        bottom: 19px;
-        width: 54px;
-        height: 54px;
-        border-radius: 18px;
+    .delete-plan {
+      color: #b2b6bd;
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .delete-plan:hover {
+      color: #747a84;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .task-row {
+      display: grid;
+      grid-template-columns: 19px minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: center;
+      padding: 9px 0;
+      border-top: 1px solid #f0f1f3;
+    }
+
+    .task-check {
+      width: 17px;
+      height: 17px;
+      border: 1px solid #cfd3d9;
+      border-radius: 5px;
+      appearance: none;
+      cursor: pointer;
+      position: relative;
+      background: white;
+    }
+
+    .task-check:checked {
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .task-check:checked::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+
+    .task-check:checked + .task-name {
+      color: #b0b4bb;
+      text-decoration: line-through;
+    }
+
+    .task-name {
+      min-width: 0;
+      font-size: 12px;
+      color: #606874;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .task-duration {
+      color: #a4a9b1;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .add-plan-button {
+      position: fixed;
+      right: 34px;
+      bottom: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      background: var(--navy);
+      color: white;
+      font-size: 27px;
+      font-weight: 250;
+      box-shadow: 0 12px 30px rgba(23,32,51,0.18);
+      z-index: 10;
+      transition: 0.2s ease;
+    }
+
+    .add-plan-button:hover {
+      transform: translateY(-3px);
+    }
+
+    .app-footer {
+      text-align: center;
+      color: #b2b6bd;
+      font-size: 9px;
+      padding: 35px 0 10px;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.28);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .modal {
-        padding: 22px;
-        border-radius: 23px;
+      width: min(530px, 100%);
+      background: white;
+      border-radius: 24px;
+      padding: 27px;
+      box-shadow: 0 25px 70px rgba(10,16,28,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .time-row {
-        grid-template-columns: 1fr 1fr;
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
     }
-}
-</style>
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+    }
+
+    .close-modal {
+      font-size: 22px;
+      color: #a2a7af;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      color: #888f99;
+      margin-bottom: 8px;
+    }
+
+    .time-inputs {
+      display: grid;
+      grid-template-columns: 1fr 20px 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #e3e5e9;
+      border-radius: 11px;
+      padding: 0 13px;
+      outline: none;
+      color: #4f5661;
+      background: #fafbfc;
+      font-size: 12px;
+    }
+
+    .input-field:focus {
+      border-color: #bfc4cc;
+      background: white;
+    }
+
+    .time-separator {
+      text-align: center;
+      color: #a1a6ae;
+    }
+
+    .tasks-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .editor-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 100px 30px;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .editor-row .input-field {
+      height: 43px;
+    }
+
+    .duration-input {
+      text-align: center;
+    }
+
+    .remove-task {
+      height: 43px;
+      color: #a3a8b0;
+      font-size: 18px;
+    }
+
+    .add-task {
+      width: 100%;
+      height: 42px;
+      border: 1px dashed #d9dce1;
+      border-radius: 10px;
+      color: #8f959e;
+      font-size: 11px;
+    }
+
+    .add-task:hover {
+      border-color: #c6cad1;
+      color: #666d78;
+    }
+
+    .save-plan {
+      width: 100%;
+      height: 49px;
+      background: var(--navy);
+      color: white;
+      border-radius: 12px;
+      margin-top: 22px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    /* Delete confirmation */
+
+    .confirm-modal {
+      width: min(360px, 100%);
+      background: white;
+      border-radius: 21px;
+      padding: 27px;
+      box-shadow: 0 25px 70px rgba(10,16,28,0.2);
+      text-align: center;
+    }
+
+    .confirm-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .confirm-description {
+      font-size: 11px;
+      color: #9a9fa7;
+      margin-bottom: 22px;
+    }
+
+    .confirm-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .confirm-buttons button {
+      height: 43px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .confirm-yes {
+      background: var(--navy);
+      color: white;
+    }
+
+    .confirm-no {
+      background: #f1f2f4;
+      color: #656c76;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+      .landing-main {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        text-align: center;
+      }
+
+      .hero-copy {
+        padding-left: 0;
+      }
+
+      .mockup-wrap {
+        order: 2;
+      }
+
+      .landing-main {
+        padding-top: 35px;
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .landing-header,
+      .landing-main {
+        width: min(100% - 32px, 1280px);
+      }
+
+      .landing-header {
+        padding-top: 21px;
+      }
+
+      .landing-main {
+        padding-top: 35px;
+        padding-bottom: 35px;
+      }
+
+      .hero-title {
+        font-size: clamp(43px, 13vw, 60px);
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .mockup {
+        padding: 17px;
+        border-radius: 21px;
+      }
+
+      .quote-area {
+        width: calc(100% - 65px);
+      }
+
+      .quote-refresh {
+        right: -31px;
+      }
+
+      .landing-page::before,
+      .landing-page::after,
+      .app-page::before,
+      .app-page::after {
+        display: none;
+      }
+
+      .app-header {
+        width: calc(100% - 32px);
+        height: 65px;
+      }
+
+      .app-content {
+        width: calc(100% - 32px);
+        padding-top: 23px;
+      }
+
+      .date-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .week-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .week-grid {
+        gap: 4px;
+      }
+
+      .day-button {
+        height: 70px;
+        border-radius: 11px;
+      }
+
+      .day-button .weekday {
+        font-size: 8px;
+        margin-bottom: 7px;
+      }
+
+      .day-button .day-number {
+        font-size: 16px;
+      }
+
+      .day-button.today::after {
+        bottom: 7px;
+      }
+
+      .add-plan-button {
+        width: 47px;
+        height: 47px;
+        right: 18px;
+        bottom: 20px;
+        border-radius: 14px;
+      }
+
+      .editor-row {
+        grid-template-columns: minmax(0, 1fr) 80px 26px;
+      }
+
+      .modal {
+        padding: 22px;
+        border-radius: 20px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .day-button {
+        height: 65px;
+      }
+
+      .day-button .day-number {
+        font-size: 14px;
+      }
+
+      .day-button .weekday {
+        font-size: 7px;
+      }
+
+      .date-title {
+        font-size: 29px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="page-background"></div>
+  <!-- =========================
+       LANDING PAGE
+  ========================= -->
 
-<div class="app-shell">
+  <section class="landing-page" id="landingPage">
 
-<div id="app">
+    <header class="landing-header">
+      <div class="logo">
+        <span>flow</span><span class="day">day</span>
+      </div>
+    </header>
 
+    <main class="landing-main">
 
-<!-- =====================================================
-     LANDING
-===================================================== -->
+      <div class="hero-copy">
+        <div class="eyebrow">TODAY'S FLOW</div>
 
-<section id="landingPage" class="landing">
+        <h1 class="hero-title">
+          오늘 해야 할 일을,<br>
+          한눈에
+        </h1>
 
-    <div class="landing-inner">
+        <p class="hero-description">
+          해야 할 일을 시간의 흐름에 맞춰 정리하고,<br>
+          오늘의 계획을 한곳에서 관리하세요.
+        </p>
 
-        <div class="brand">
-            <span class="brand-flow">flow</span><span class="brand-day">day</span>
-        </div>
+        <button class="start-button" id="startButton">
+          시작하기
+        </button>
 
+        <br>
 
-        <div class="hero">
+        <button class="google-button" id="googleButton">
+          <span class="google-icon">G</span>
+          Google 계정으로 시작하기
+        </button>
+      </div>
 
-            <div class="hero-copy">
+      <div class="mockup-wrap">
+        <div class="mockup">
 
-                <h1 class="hero-title">
-                    오늘 해야 할 일을,
-                    <span>한눈에</span>
-                </h1>
-
-                <p class="hero-description">
-                    오늘의 공부 흐름을 한곳에 모아보세요.
-                </p>
-
-
-                <div class="start-buttons">
-
-                    <button
-                        class="primary-btn"
-                        id="startBtn"
-                    >
-                        시작하기
-                    </button>
-
-
-                    <button
-                        class="google-btn"
-                        id="googleBtn"
-                    >
-
-                        <svg
-                            class="google-icon"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                fill="#4285F4"
-                                d="M21.35 12.23c0-.72-.06-1.42-.18-2.09H12v3.96h5.24a4.48 4.48 0 0 1-1.95 2.94v2.45h3.15c1.85-1.7 2.91-4.2 2.91-7.26z"
-                            />
-
-                            <path
-                                fill="#34A853"
-                                d="M12 21.8c2.64 0 4.85-.87 6.47-2.36l-3.15-2.45c-.87.58-1.98.92-3.32.92-2.55 0-4.71-1.72-5.49-4.04H3.25v2.53A9.77 9.77 0 0 0 12 21.8z"
-                            />
-
-                            <path
-                                fill="#FBBC05"
-                                d="M6.51 13.87A5.87 5.87 0 0 1 6.2 12c0-.65.11-1.28.31-1.87V7.6H3.25A9.8 9.8 0 0 0 2.2 12c0 1.58.38 3.07 1.05 4.4l3.26-2.53z"
-                            />
-
-                            <path
-                                fill="#EA4335"
-                                d="M12 6.09c1.44 0 2.73.5 3.75 1.49l2.81-2.81C16.85 3.1 14.64 2.2 12 2.2a9.77 9.77 0 0 0-8.75 5.4l3.26 2.53C7.29 7.81 9.45 6.09 12 6.09z"
-                            />
-                        </svg>
-
-                        Google 계정으로 시작
-
-                    </button>
-
-                </div>
-
-
-                <div class="quote-area">
-
-                    <div class="quote-box">
-
-                        <span class="quote-open">“</span>
-
-                        <div
-                            id="quoteText"
-                            class="quote-text"
-                        ></div>
-
-                        <div
-                            id="quoteAuthor"
-                            class="quote-author"
-                        ></div>
-
-                        <span class="quote-close">”</span>
-
-                    </div>
-
-
-                    <button
-                        class="quote-change"
-                        id="quoteChangeBtn"
-                        aria-label="다른 명언 보기"
-                    >
-
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                        >
-                            <path d="M20 11a8.1 8.1 0 0 0-14.7-4.7L4 8"/>
-                            <path d="M4 4v4h4"/>
-                            <path d="M4 13a8.1 8.1 0 0 0 14.7 4.7L20 16"/>
-                            <path d="M20 20v-4h-4"/>
-                        </svg>
-
-                    </button>
-
-                </div>
-
+          <div class="mockup-top">
+            <div class="mockup-logo">
+              flow<span>day</span>
             </div>
+            <div class="mockup-date">오늘의 계획</div>
+          </div>
 
+          <div class="mockup-week">
+            <div class="mock-day">월<strong>31</strong></div>
+            <div class="mock-day">화<strong>1</strong></div>
+            <div class="mock-day">수<strong>2</strong></div>
+            <div class="mock-day active">목<strong>3</strong></div>
+            <div class="mock-day">금<strong>4</strong></div>
+            <div class="mock-day">토<strong>5</strong></div>
+            <div class="mock-day">일<strong>6</strong></div>
+          </div>
 
-            <div class="hero-visual">
+          <div class="mock-card">
+            <div class="mock-line"></div>
+            <div class="mock-line long"></div>
+          </div>
 
-                <div class="visual-glow"></div>
-
-
-                <div class="mockup">
-
-                    <div class="mockup-screen">
-
-                        <div class="mockup-top">
-
-                            <span class="mockup-date">
-                                MON, SEP 7
-                            </span>
-
-                            <strong style="font-size:11px;">
-                                flowday
-                            </strong>
-
-                        </div>
-
-
-                        <div class="mockup-title">
-                            오늘의 계획
-                        </div>
-
-
-                        <div class="mockup-card">
-
-                            <div class="mockup-time">
-                                10:00 ~ 14:00
-                            </div>
-
-                            <div class="mockup-plan">
-                                오전 공부
-                            </div>
-
-                            <div class="mockup-task">
-                                <span class="mockup-check"></span>
-                                집중해서 공부하기
-                            </div>
-
-                            <div class="mockup-task">
-                                <span class="mockup-check"></span>
-                                오늘 배운 내용 정리
-                            </div>
-
-                            <div class="mockup-task">
-                                <span class="mockup-check"></span>
-                                오답 다시 확인
-                            </div>
-
-                        </div>
-
-
-                        <div class="mockup-card">
-
-                            <div class="mockup-time">
-                                15:00 ~ 18:00
-                            </div>
-
-                            <div class="mockup-plan">
-                                오후 공부
-                            </div>
-
-                            <div class="mockup-task">
-                                <span class="mockup-check"></span>
-                                해야 할 일 끝내기
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+          <div class="mock-card">
+            <div class="mock-line"></div>
+            <div class="mock-line long"></div>
+          </div>
 
         </div>
+      </div>
 
+    </main>
+
+    <div class="quote-area">
+      <span class="quote-mark open">“</span>
+
+      <div id="quoteText" class="quote-text"></div>
+      <span id="quoteAuthor" class="quote-author"></span>
+
+      <span class="quote-mark close">”</span>
+
+      <button class="quote-refresh" id="quoteRefresh" aria-label="명언 바꾸기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M20 11a8.1 8.1 0 0 0-14.8-4L3 10" />
+          <path d="M3 5v5h5" />
+          <path d="M4 13a8.1 8.1 0 0 0 14.8 4L21 14" />
+          <path d="M21 19v-5h-5" />
+        </svg>
+      </button>
     </div>
-
 
     <footer class="landing-footer">
-        © 2026 flowday. All rights reserved.
+      © 2026 flowday. All rights reserved.
     </footer>
 
-</section>
+  </section>
 
 
-<!-- =====================================================
-     SCHEDULE
-===================================================== -->
+  <!-- =========================
+       APP PAGE
+  ========================= -->
 
-<section
-    id="schedulePage"
-    class="schedule-page hidden"
->
+  <section class="app-page" id="appPage">
 
-    <div class="schedule-container">
+    <header class="app-header">
+
+      <button class="back-button" id="backButton" aria-label="뒤로가기">
+        &lt;
+      </button>
+
+      <div class="profile">
+        <span class="profile-g">G</span>
+        <span>내 플랜</span>
+      </div>
+
+    </header>
 
 
-        <div class="schedule-top">
+    <main class="app-content">
+
+      <section class="date-heading">
+
+        <div>
+          <div class="date-title-small">TODAY'S FLOW</div>
+
+          <div class="date-title-row">
+            <h1 class="date-title" id="dateTitle"></h1>
 
             <button
-                class="back-btn"
-                id="backBtn"
-                aria-label="뒤로가기"
+              class="calendar-button"
+              id="calendarButton"
+              aria-label="날짜 선택"
             >
-                &lt;
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <rect x="3.5" y="5" width="17" height="16" rx="2.5"></rect>
+                <path d="M7 3.5v4"></path>
+                <path d="M17 3.5v4"></path>
+                <path d="M3.5 9.5h17"></path>
+              </svg>
             </button>
 
+            <input type="date" id="datePicker">
+          </div>
+        </div>
 
-            <button
-                class="profile-btn"
-                id="profileBtn"
-            >
+        <div>
+          <div class="week-range" id="weekRange"></div>
 
-                <span
-                    class="profile-letter"
-                    id="profileLetter"
-                >
-                    G
-                </span>
-
-                <span id="profileText">
-                    내 플랜
-                </span>
-
+          <div class="week-controls">
+            <button class="week-nav" id="prevWeek" aria-label="이전 주">
+              ‹
             </button>
 
+            <button class="week-nav" id="nextWeek" aria-label="다음 주">
+              ›
+            </button>
+          </div>
         </div>
 
-
-        <div class="date-header">
-
-            <div class="date-label">
-                TODAY'S FLOW
-            </div>
+      </section>
 
 
-            <div class="date-title-row">
-
-                <h2
-                    class="date-title"
-                    id="currentDateTitle"
-                ></h2>
+      <section class="week-section">
+        <div class="week-grid" id="weekGrid"></div>
+      </section>
 
 
-                <button
-                    class="calendar-button"
-                    id="calendarButton"
-                    aria-label="날짜 선택"
-                >
+      <section>
 
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                    >
-                        <rect
-                            x="3"
-                            y="4.5"
-                            width="18"
-                            height="17"
-                            rx="3"
-                        />
-
-                        <path d="M8 2.5v4M16 2.5v4M3 9h18"/>
-                    </svg>
-
-                </button>
-
-            </div>
-
+        <div class="plans-header">
+          <h2 class="plans-title">오늘의 계획</h2>
+          <span class="plans-count" id="plansCount"></span>
         </div>
 
+        <div class="plans" id="plansContainer"></div>
 
-        <div class="week-row">
-
-            <span
-                class="week-label"
-                id="weekLabel"
-            >
-                이번 주
-            </span>
+      </section>
 
 
-            <div class="week-controls">
+      <footer class="app-footer">
+        © 2026 flowday. All rights reserved.
+      </footer>
 
-                <button
-                    class="week-btn"
-                    id="prevWeekBtn"
-                >
-                    ‹
-                </button>
-
-                <button
-                    class="week-btn"
-                    id="nextWeekBtn"
-                >
-                    ›
-                </button>
-
-            </div>
-
-        </div>
+    </main>
 
 
-        <div
-            class="week-calendar"
-            id="weekCalendar"
-        ></div>
-
-
-        <div
-            class="plan-list"
-            id="planList"
-        ></div>
-
-    </div>
-
-
-    <button
-        class="fab"
-        id="addPlanBtn"
-        aria-label="계획 추가"
-    >
-
-        <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-        >
-            <path d="M12 5v14M5 12h14"/>
-        </svg>
-
+    <button class="add-plan-button" id="addPlanButton" aria-label="계획 추가">
+      +
     </button>
 
-</section>
-
-</div>
-
-</div>
+  </section>
 
 
-<!-- =====================================================
-     ADD PLAN MODAL
-===================================================== -->
+  <!-- =========================
+       ADD PLAN MODAL
+  ========================= -->
 
-<div
-    class="modal-backdrop hidden"
-    id="planModal"
->
+  <div class="modal-backdrop" id="planModal">
 
     <div class="modal">
 
-        <div class="modal-header">
+      <div class="modal-header">
+        <h2 class="modal-title">새 계획</h2>
 
-            <div class="modal-title">
-                새로운 계획
-            </div>
-
-            <button
-                class="modal-close"
-                id="closePlanModal"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                >
-                    <path d="M6 6l12 12M18 6L6 18"/>
-                </svg>
-
-            </button>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                날짜
-            </label>
-
-            <input
-                class="form-input"
-                type="date"
-                id="planDate"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                계획 이름
-            </label>
-
-            <input
-                class="form-input"
-                type="text"
-                id="planName"
-                placeholder="계획 이름을 입력하세요"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                시간
-            </label>
-
-            <div class="time-row">
-
-                <input
-                    class="form-input"
-                    type="time"
-                    id="planStart"
-                    value="10:00"
-                >
-
-                <input
-                    class="form-input"
-                    type="time"
-                    id="planEnd"
-                    value="12:00"
-                >
-
-            </div>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label class="form-label">
-                해야 할 일
-            </label>
-
-
-            <div class="task-input-row">
-
-                <input
-                    class="form-input task-input"
-                    type="text"
-                    id="taskInput"
-                    placeholder="할 일을 추가하세요"
-                >
-
-                <input
-                    class="form-input minutes-input"
-                    type="number"
-                    id="taskMinutes"
-                    min="10"
-                    step="10"
-                    value="30"
-                    placeholder="분"
-                >
-
-                <button
-                    class="add-task-btn"
-                    id="addTaskBtn"
-                    aria-label="할 일 추가"
-                >
-
-                    <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-
-                </button>
-
-            </div>
-
-
-            <div
-                class="modal-task-list"
-                id="modalTaskList"
-            ></div>
-
-        </div>
-
-
-        <button
-            class="modal-submit"
-            id="savePlanBtn"
-        >
-            계획 추가하기
+        <button class="close-modal" id="closePlanModal">
+          ×
         </button>
-
-    </div>
-
-</div>
+      </div>
 
 
-<!-- =====================================================
-     DATE PICKER
-===================================================== -->
+      <label class="form-label">시간</label>
 
-<div
-    class="modal-backdrop hidden"
-    id="datePickerModal"
->
-
-    <div class="date-picker-modal">
-
-        <div class="modal-header">
-
-            <div class="date-picker-title">
-                날짜 선택
-            </div>
-
-            <button
-                class="modal-close"
-                id="closeDatePicker"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                >
-                    <path d="M6 6l12 12M18 6L6 18"/>
-                </svg>
-
-            </button>
-
-        </div>
-
+      <div class="time-inputs">
 
         <input
-            class="form-input date-picker-input"
-            type="date"
-            id="calendarDateInput"
+          type="time"
+          id="startTime"
+          class="input-field"
+          value="10:00"
+          step="600"
         >
+
+        <div class="time-separator">~</div>
+
+        <input
+          type="time"
+          id="endTime"
+          class="input-field"
+          value="11:00"
+          step="600"
+        >
+
+      </div>
+
+
+      <label class="form-label">할 일</label>
+
+      <div class="tasks-editor" id="tasksEditor"></div>
+
+      <button class="add-task" id="addTaskButton">
+        + 할 일 추가
+      </button>
+
+      <button class="save-plan" id="savePlanButton">
+        계획 추가
+      </button>
 
     </div>
 
-</div>
+  </div>
 
 
-<!-- =====================================================
-     DELETE CONFIRM
-===================================================== -->
+  <!-- =========================
+       DELETE CONFIRM MODAL
+  ========================= -->
 
-<div
-    class="modal-backdrop hidden"
-    id="deleteModal"
->
+  <div class="modal-backdrop" id="deleteModal">
 
     <div class="confirm-modal">
 
-        <div class="confirm-icon">
+      <div class="confirm-title">
+        계획을 삭제하시겠습니까?
+      </div>
 
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-            >
-                <path d="M12 8v5"/>
-                <path d="M12 16.5h.01"/>
-                <path d="M10.3 3.8L2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 3.8a2 2 0 0 0-3.4 0z"/>
-            </svg>
+      <div class="confirm-description">
+        삭제한 계획은 다시 복구할 수 없습니다.
+      </div>
 
-        </div>
+      <div class="confirm-buttons">
 
+        <!-- 예가 먼저 -->
+        <button class="confirm-yes" id="confirmDelete">
+          예
+        </button>
 
-        <div class="confirm-title">
-            계획을 삭제하시겠습니까?
-        </div>
+        <button class="confirm-no" id="cancelDelete">
+          아니오
+        </button>
 
-
-        <div class="confirm-description">
-            삭제한 계획은 다시 복구할 수 없습니다.
-        </div>
-
-
-        <div class="confirm-buttons">
-
-            <button
-                class="confirm-btn confirm-yes"
-                id="confirmDeleteBtn"
-            >
-                예
-            </button>
-
-            <button
-                class="confirm-btn confirm-no"
-                id="cancelDeleteBtn"
-            >
-                아니오
-            </button>
-
-        </div>
+      </div>
 
     </div>
 
-</div>
+  </div>
 
 
-<script>
+  <script>
+    /* =========================
+       DATA
+    ========================= */
 
-/* =====================================================
-   STORAGE
-===================================================== */
-
-const STORAGE_KEY = "flowday_plans_v4";
-
-let plans = JSON.parse(
-    localStorage.getItem(STORAGE_KEY) || "[]"
-);
-
-let selectedDate = formatDate(new Date());
-
-let modalTasks = [];
-
-let deleteTargetId = null;
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const landingPage =
-    document.getElementById("landingPage");
-
-const schedulePage =
-    document.getElementById("schedulePage");
-
-const startBtn =
-    document.getElementById("startBtn");
-
-const googleBtn =
-    document.getElementById("googleBtn");
-
-const backBtn =
-    document.getElementById("backBtn");
-
-const currentDateTitle =
-    document.getElementById("currentDateTitle");
-
-const weekCalendar =
-    document.getElementById("weekCalendar");
-
-const weekLabel =
-    document.getElementById("weekLabel");
-
-const planList =
-    document.getElementById("planList");
-
-const prevWeekBtn =
-    document.getElementById("prevWeekBtn");
-
-const nextWeekBtn =
-    document.getElementById("nextWeekBtn");
-
-const calendarButton =
-    document.getElementById("calendarButton");
-
-const datePickerModal =
-    document.getElementById("datePickerModal");
-
-const calendarDateInput =
-    document.getElementById("calendarDateInput");
-
-const closeDatePicker =
-    document.getElementById("closeDatePicker");
-
-const addPlanBtn =
-    document.getElementById("addPlanBtn");
-
-const planModal =
-    document.getElementById("planModal");
-
-const closePlanModal =
-    document.getElementById("closePlanModal");
-
-const planDate =
-    document.getElementById("planDate");
-
-const planName =
-    document.getElementById("planName");
-
-const planStart =
-    document.getElementById("planStart");
-
-const planEnd =
-    document.getElementById("planEnd");
-
-const taskInput =
-    document.getElementById("taskInput");
-
-const taskMinutes =
-    document.getElementById("taskMinutes");
-
-const addTaskBtn =
-    document.getElementById("addTaskBtn");
-
-const modalTaskList =
-    document.getElementById("modalTaskList");
-
-const savePlanBtn =
-    document.getElementById("savePlanBtn");
-
-const deleteModal =
-    document.getElementById("deleteModal");
-
-const confirmDeleteBtn =
-    document.getElementById("confirmDeleteBtn");
-
-const cancelDeleteBtn =
-    document.getElementById("cancelDeleteBtn");
-
-const quoteText =
-    document.getElementById("quoteText");
-
-const quoteAuthor =
-    document.getElementById("quoteAuthor");
-
-const quoteChangeBtn =
-    document.getElementById("quoteChangeBtn");
-
-
-/* =====================================================
-   QUOTES
-===================================================== */
-
-const quotes = [
-
-    {
-        text: "천재는 1%의 영감과 99%의 노력으로 이루어진다.",
+    const quotes = [
+      {
+        text: "천재는 1%의 영감과 99%의 땀으로 이루어진다.",
         author: "토머스 에디슨"
-    },
-
-    {
-        text: "교육은 세상을 바꾸는 데 사용할 수 있는 가장 강력한 무기이다.",
+      },
+      {
+        text: "교육은 세상을 바꾸는 데 사용할 수 있는 가장 강력한 무기다.",
         author: "넬슨 만델라"
-    },
-
-    {
-        text: "교육의 뿌리는 쓰지만 그 열매는 달다.",
+      },
+      {
+        text: "교육의 뿌리는 쓰지만, 그 열매는 달다.",
         author: "아리스토텔레스"
-    },
-
-    {
+      },
+      {
         text: "배움은 정신을 결코 지치게 하지 않는다.",
         author: "레오나르도 다 빈치"
-    },
-
-    {
+      },
+      {
         text: "어떤 분야의 전문가도 한때는 초보자였다.",
         author: "헬렌 헤이스"
-    },
-
-    {
-        text: "읽기는 마음에 지식의 재료를 제공할 뿐이고, 우리가 읽은 것을 자신의 것으로 만드는 것은 생각이다.",
-        author: "존 로크"
-    },
-
-    {
-        text: "반박하고 논박하기 위해 읽지 말고, 무조건 믿기 위해서도 읽지 말라. 깊이 생각하고 판단하기 위해 읽어라.",
+      },
+      {
+        text: "읽지 마라, 반박하고 논박하기 위해서도, 무조건 믿기 위해서도 아니다. 숙고하고 판단하기 위해 읽어라.",
         author: "프랜시스 베이컨"
-    },
+      },
+      {
+        text: "교육은 미래로 가는 우리의 여권이다.",
+        author: "말콤 엑스"
+      },
+      {
+        text: "오직 하나의 선은 지식이고, 오직 하나의 악은 무지다.",
+        author: "소크라테스"
+      }
+    ];
 
-    {
-        text: "독서는 사람을 풍요롭게 하고, 대화는 준비된 사람으로 만들며, 글쓰기는 정확한 사람으로 만든다.",
-        author: "프랜시스 베이컨"
-    },
+    const STORAGE_KEY = "flowday_plans_v4";
 
-    {
-        text: "교육은 미래로 가는 여권이다. 내일은 오늘 그것을 준비하는 사람들의 것이다.",
-        author: "말콤 X"
+    let plans = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+    let selectedDate = new Date();
+    selectedDate.setHours(0, 0, 0, 0);
+
+    let weekStart = getMonday(selectedDate);
+
+    let deleteTargetId = null;
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const landingPage = document.getElementById("landingPage");
+    const appPage = document.getElementById("appPage");
+
+    const startButton = document.getElementById("startButton");
+    const googleButton = document.getElementById("googleButton");
+    const backButton = document.getElementById("backButton");
+
+    const dateTitle = document.getElementById("dateTitle");
+    const weekRange = document.getElementById("weekRange");
+    const weekGrid = document.getElementById("weekGrid");
+
+    const prevWeek = document.getElementById("prevWeek");
+    const nextWeek = document.getElementById("nextWeek");
+
+    const calendarButton = document.getElementById("calendarButton");
+    const datePicker = document.getElementById("datePicker");
+
+    const plansContainer = document.getElementById("plansContainer");
+    const plansCount = document.getElementById("plansCount");
+
+    const addPlanButton = document.getElementById("addPlanButton");
+
+    const planModal = document.getElementById("planModal");
+    const closePlanModal = document.getElementById("closePlanModal");
+
+    const startTime = document.getElementById("startTime");
+    const endTime = document.getElementById("endTime");
+
+    const tasksEditor = document.getElementById("tasksEditor");
+    const addTaskButton = document.getElementById("addTaskButton");
+    const savePlanButton = document.getElementById("savePlanButton");
+
+    const deleteModal = document.getElementById("deleteModal");
+    const confirmDelete = document.getElementById("confirmDelete");
+    const cancelDelete = document.getElementById("cancelDelete");
+
+    const quoteText = document.getElementById("quoteText");
+    const quoteAuthor = document.getElementById("quoteAuthor");
+    const quoteRefresh = document.getElementById("quoteRefresh");
+
+
+    /* =========================
+       LANDING
+    ========================= */
+
+    function showApp() {
+      landingPage.style.display = "none";
+      appPage.style.display = "block";
+      renderApp();
     }
 
-];
-
-let quoteIndex =
-    Math.floor(Math.random() * quotes.length);
-
-
-function renderQuote() {
-
-    const quote =
-        quotes[quoteIndex];
-
-    quoteText.textContent =
-        quote.text;
-
-    quoteAuthor.textContent =
-        "© " + quote.author;
-
-}
-
-
-quoteChangeBtn.addEventListener(
-    "click",
-    () => {
-
-        quoteIndex =
-            (quoteIndex + 1) % quotes.length;
-
-        renderQuote();
-
+    function showLanding() {
+      appPage.style.display = "none";
+      landingPage.style.display = "flex";
     }
-);
+
+    startButton.addEventListener("click", showApp);
+
+    /*
+      Google 버튼은 현재 데모 진입 버튼.
+      Firebase 연결 후 이 부분만 실제 Google 로그인으로 교체하면 됨.
+    */
+    googleButton.addEventListener("click", showApp);
+
+    backButton.addEventListener("click", showLanding);
 
 
-/* =====================================================
-   DATE
-===================================================== */
+    /* =========================
+       QUOTES
+    ========================= */
 
-function formatDate(date) {
+    let quoteIndex = Math.floor(Math.random() * quotes.length);
 
-    const year =
-        date.getFullYear();
+    function renderQuote() {
+      const quote = quotes[quoteIndex];
 
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
+      quoteText.textContent = quote.text;
+      quoteAuthor.textContent = `· ${quote.author}`;
+    }
 
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
+    quoteRefresh.addEventListener("click", () => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      renderQuote();
+    });
 
-    return `${year}-${month}-${day}`;
-
-}
+    renderQuote();
 
 
-function parseDate(dateString) {
+    /* =========================
+       DATE FUNCTIONS
+    ========================= */
 
-    const [
-        year,
-        month,
-        day
-    ] =
-        dateString
-            .split("-")
-            .map(Number);
+    function dateKey(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
 
-    return new Date(
-        year,
-        month - 1,
-        day
-    );
+      return `${y}-${m}-${d}`;
+    }
 
-}
+    function parseDateKey(key) {
+      const [y, m, d] = key.split("-").map(Number);
 
+      const date = new Date(y, m - 1, d);
+      date.setHours(0, 0, 0, 0);
 
-function getKoreanWeekday(date) {
+      return date;
+    }
 
-    return [
-        "일",
-        "월",
-        "화",
-        "수",
-        "목",
-        "금",
-        "토"
-    ][date.getDay()];
+    function getMonday(date) {
+      const d = new Date(date);
+      d.setHours(0, 0, 0, 0);
 
-}
+      const day = d.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
 
+      d.setDate(d.getDate() + diff);
 
-/* =====================================================
-   WEEK
-===================================================== */
+      return d;
+    }
 
-function getMonday(date) {
+    function addDays(date, amount) {
+      const d = new Date(date);
+      d.setDate(d.getDate() + amount);
+      return d;
+    }
 
-    const d =
-        new Date(date);
+    function isSameDate(a, b) {
+      return dateKey(a) === dateKey(b);
+    }
 
-    const day =
-        d.getDay();
+    function formatDateTitle(date) {
+      return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+    }
 
-    const difference =
-        day === 0
-            ? -6
-            : 1 - day;
+    function formatShortDate(date) {
+      return `${date.getMonth() + 1}/${date.getDate()}`;
+    }
 
-    d.setDate(
-        d.getDate() + difference
-    );
+    function formatWeekRange(start) {
+      const end = addDays(start, 6);
 
-    return d;
+      return `${start.getMonth() + 1}월 ${start.getDate()}일 - ${end.getMonth() + 1}월 ${end.getDate()}일`;
+    }
 
-}
-
-
-function renderWeek() {
-
-    weekCalendar.innerHTML = "";
-
-    const selected =
-        parseDate(selectedDate);
-
-    const monday =
-        getMonday(selected);
-
-    const sunday =
-        new Date(monday);
-
-    sunday.setDate(
-        monday.getDate() + 6
-    );
+    function getWeekday(date) {
+      const names = ["일", "월", "화", "수", "목", "금", "토"];
+      return names[date.getDay()];
+    }
 
 
-    weekLabel.textContent =
-        `${monday.getMonth() + 1}월 ${monday.getDate()}일 ~ ` +
-        `${sunday.getMonth() + 1}월 ${sunday.getDate()}일`;
+    /* =========================
+       WEEK RENDER
+    ========================= */
 
+    function renderWeek() {
+      weekGrid.innerHTML = "";
 
-    for (let i = 0; i < 7; i++) {
+      weekRange.textContent = formatWeekRange(weekStart);
 
-        const date =
-            new Date(monday);
+      for (let i = 0; i < 7; i++) {
 
-        date.setDate(
-            monday.getDate() + i
-        );
+        const date = addDays(weekStart, i);
 
-        const dateString =
-            formatDate(date);
+        const button = document.createElement("button");
+        button.className = "day-button";
 
-        const button =
-            document.createElement("button");
+        if (isSameDate(date, selectedDate)) {
+          button.classList.add("selected");
+        }
 
-        button.className =
-            "date-item" +
-            (
-                dateString === selectedDate
-                    ? " active"
-                    : ""
-            );
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
+        if (isSameDate(date, today)) {
+          button.classList.add("today");
+        }
 
         button.innerHTML = `
-
-            <span class="date-week">
-                ${getKoreanWeekday(date)}
-            </span>
-
-            <span class="date-number">
-                ${date.getDate()}
-            </span>
-
+          <span class="weekday">${getWeekday(date)}</span>
+          <span class="day-number">${date.getDate()}</span>
         `;
 
+        button.addEventListener("click", () => {
+          selectedDate = new Date(date);
+          renderApp();
+        });
 
-        button.addEventListener(
-            "click",
-            () => {
-
-                selectedDate =
-                    dateString;
-
-                renderSchedule();
-
-            }
-        );
-
-
-        weekCalendar.appendChild(
-            button
-        );
-
+        weekGrid.appendChild(button);
+      }
     }
 
-}
 
+    /* =========================
+       PLAN RENDER
+    ========================= */
 
-function moveWeek(amount) {
+    function getPlansForDate(date) {
+      const key = dateKey(date);
 
-    const date =
-        parseDate(selectedDate);
+      return plans
+        .filter(plan => plan.date === key)
+        .sort((a, b) => a.startTime.localeCompare(b.startTime));
+    }
 
-    date.setDate(
-        date.getDate() + amount * 7
-    );
+    function renderPlans() {
 
-    selectedDate =
-        formatDate(date);
+      const todayPlans = getPlansForDate(selectedDate);
 
-    renderSchedule();
+      plansContainer.innerHTML = "";
 
-}
+      plansCount.textContent =
+        todayPlans.length === 0
+          ? ""
+          : `${todayPlans.length}개의 계획`;
 
+      if (todayPlans.length === 0) {
 
-prevWeekBtn.addEventListener(
-    "click",
-    () => moveWeek(-1)
-);
+        plansContainer.innerHTML = `
+          <div class="empty-state">
+            <div>
+              <strong>오늘의 계획이 없습니다.</strong>
+              <span>오른쪽 아래 + 버튼으로 새로운 계획을 추가해보세요.</span>
+            </div>
+          </div>
+        `;
 
-nextWeekBtn.addEventListener(
-    "click",
-    () => moveWeek(1)
-);
+        return;
+      }
 
+      todayPlans.forEach(plan => {
 
-/* =====================================================
-   CURRENT DATE
-===================================================== */
+        const card = document.createElement("article");
+        card.className = "plan-card";
 
-function renderCurrentDate() {
+        const taskHTML = plan.tasks.map((task, index) => {
 
-    const date =
-        parseDate(selectedDate);
+          return `
+            <div class="task-row">
+              <input
+                type="checkbox"
+                class="task-check"
+                data-plan-id="${plan.id}"
+                data-task-index="${index}"
+                ${task.done ? "checked" : ""}
+              >
 
-    currentDateTitle.textContent =
-        `${date.getMonth() + 1}월 ${date.getDate()}일`;
+              <span class="task-name">${escapeHTML(task.name)}</span>
 
-}
+              <span class="task-duration">
+                ${task.duration}분
+              </span>
+            </div>
+          `;
 
+        }).join("");
 
-/* =====================================================
-   PLAN RENDER
-===================================================== */
+        card.innerHTML = `
+          <div class="plan-top">
 
-function renderPlans() {
-
-    planList.innerHTML = "";
-
-
-    const filteredPlans =
-        plans
-            .filter(
-                plan =>
-                    plan.date === selectedDate
-            )
-            .sort(
-                (a,b) =>
-                    a.start.localeCompare(b.start)
-            );
-
-
-    if (
-        filteredPlans.length === 0
-    ) {
-
-        planList.innerHTML = `
-
-            <div class="empty-state">
-
-                <strong>
-                    오늘의 계획이 없습니다.
-                </strong>
-
-                <p>
-                    오른쪽 아래 + 버튼으로 계획을 추가해보세요.
-                </p>
-
+            <div class="plan-time">
+              ${plan.startTime} ~ ${plan.endTime}
             </div>
 
+            <button
+              class="delete-plan"
+              data-delete-id="${plan.id}"
+              aria-label="계획 삭제"
+            >
+              ×
+            </button>
+
+          </div>
+
+          <div class="task-list">
+            ${taskHTML}
+          </div>
         `;
 
-        return;
+        plansContainer.appendChild(card);
+      });
 
+      document.querySelectorAll(".delete-plan").forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          deleteTargetId = Number(button.dataset.deleteId);
+
+          deleteModal.classList.add("show");
+        });
+
+      });
+
+      document.querySelectorAll(".task-check").forEach(check => {
+
+        check.addEventListener("change", () => {
+
+          const id = Number(check.dataset.planId);
+          const taskIndex = Number(check.dataset.taskIndex);
+
+          const plan = plans.find(item => item.id === id);
+
+          if (!plan) return;
+
+          plan.tasks[taskIndex].done = check.checked;
+
+          savePlans();
+
+        });
+
+      });
     }
 
 
-    filteredPlans.forEach(
-        plan => {
+    function renderApp() {
 
-            const card =
-                document.createElement("div");
+      dateTitle.textContent = formatDateTitle(selectedDate);
 
-            card.className =
-                "plan-card";
+      datePicker.value = dateKey(selectedDate);
 
-
-            card.innerHTML = `
-
-                <div class="plan-time">
-                    ${plan.start} ~ ${plan.end}
-                </div>
+      renderWeek();
+      renderPlans();
+    }
 
 
-                <div class="plan-title-row">
+    /* =========================
+       WEEK NAVIGATION
+    ========================= */
 
-                    <div class="plan-title">
-                        ${escapeHTML(plan.name)}
-                    </div>
+    prevWeek.addEventListener("click", () => {
 
+      weekStart = addDays(weekStart, -7);
 
-                    <button
-                        class="delete-plan"
-                        data-id="${plan.id}"
-                        aria-label="계획 삭제"
-                    >
+      selectedDate = new Date(weekStart);
 
-                        <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                        >
-                            <path d="M6 6l12 12M18 6L6 18"/>
-                        </svg>
+      renderApp();
+    });
 
-                    </button>
+    nextWeek.addEventListener("click", () => {
 
-                </div>
+      weekStart = addDays(weekStart, 7);
+
+      selectedDate = new Date(weekStart);
+
+      renderApp();
+    });
 
 
-                <div class="task-list">
+    /* =========================
+       DATE PICKER
+    ========================= */
 
-                    ${plan.tasks.map(
-                        (task,index) => `
+    calendarButton.addEventListener("click", () => {
 
-                        <label
-                            class="
-                                task-item
-                                ${
-                                    task.completed
-                                        ? "completed"
-                                        : ""
-                                }
-                            "
-                            data-plan-id="${plan.id}"
-                            data-task-index="${index}"
-                        >
-
-                            <input
-                                type="checkbox"
-                                class="task-checkbox"
-                                ${
-                                    task.completed
-                                        ? "checked"
-                                        : ""
-                                }
-                            >
-
-                            <span class="task-text">
-                                ${escapeHTML(task.text)}
-                            </span>
-
-                            ${
-                                task.minutes
-                                    ? `
-                                    <span class="task-minutes">
-                                        ${task.minutes}분
-                                    </span>
-                                    `
-                                    : ""
-                            }
-
-                        </label>
-
-                    `
-                    ).join("")}
-
-                </div>
-
-            `;
-
-
-            planList.appendChild(card);
-
+      try {
+        if (datePicker.showPicker) {
+          datePicker.showPicker();
+        } else {
+          datePicker.click();
         }
-    );
+      } catch {
+        datePicker.click();
+      }
 
+    });
 
-    document
-        .querySelectorAll(".delete-plan")
-        .forEach(
-            button => {
+    datePicker.addEventListener("change", () => {
 
-                button.addEventListener(
-                    "click",
-                    event => {
+      if (!datePicker.value) return;
 
-                        event.stopPropagation();
+      selectedDate = parseDateKey(datePicker.value);
 
-                        deleteTargetId =
-                            button.dataset.id;
+      weekStart = getMonday(selectedDate);
 
-                        deleteModal
-                            .classList
-                            .remove("hidden");
+      renderApp();
+    });
 
-                    }
-                );
 
-            }
-        );
+    /* =========================
+       MODAL
+    ========================= */
 
+    function openPlanModal() {
 
-    document
-        .querySelectorAll(".task-item")
-        .forEach(
-            item => {
+      startTime.value = "10:00";
+      endTime.value = "11:00";
 
-                item.addEventListener(
-                    "click",
-                    () => {
+      tasksEditor.innerHTML = "";
 
-                        toggleTask(
-                            item.dataset.planId,
-                            Number(
-                                item.dataset.taskIndex
-                            )
-                        );
+      addTaskEditorRow();
 
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-function toggleTask(
-    planId,
-    taskIndex
-) {
-
-    const plan =
-        plans.find(
-            item =>
-                String(item.id) ===
-                String(planId)
-        );
-
-    if (!plan) return;
-
-    plan.tasks[taskIndex].completed =
-        !plan.tasks[taskIndex].completed;
-
-    savePlans();
-
-    renderPlans();
-
-}
-
-
-/* =====================================================
-   STORAGE
-===================================================== */
-
-function savePlans() {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(plans)
-    );
-
-}
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/* =====================================================
-   SCHEDULE
-===================================================== */
-
-function renderSchedule() {
-
-    renderCurrentDate();
-
-    renderWeek();
-
-    renderPlans();
-
-}
-
-
-/* =====================================================
-   OPEN
-===================================================== */
-
-function openSchedule() {
-
-    landingPage
-        .classList
-        .add("hidden");
-
-    schedulePage
-        .classList
-        .remove("hidden");
-
-    renderSchedule();
-
-}
-
-
-startBtn.addEventListener(
-    "click",
-    openSchedule
-);
-
-
-/* Firebase 연결 전 임시 */
-
-googleBtn.addEventListener(
-    "click",
-    openSchedule
-);
-
-
-/* =====================================================
-   BACK
-===================================================== */
-
-backBtn.addEventListener(
-    "click",
-    () => {
-
-        schedulePage
-            .classList
-            .add("hidden");
-
-        landingPage
-            .classList
-            .remove("hidden");
-
-    }
-);
-
-
-/* =====================================================
-   PLAN MODAL
-===================================================== */
-
-function openPlanModal() {
-
-    planModal
-        .classList
-        .remove("hidden");
-
-    planDate.value =
-        selectedDate;
-
-    planName.value = "";
-
-    planStart.value =
-        "10:00";
-
-    planEnd.value =
-        "12:00";
-
-    taskInput.value = "";
-
-    taskMinutes.value =
-        "30";
-
-    modalTasks = [];
-
-    renderModalTasks();
-
-}
-
-
-function closePlanModalFunc() {
-
-    planModal
-        .classList
-        .add("hidden");
-
-}
-
-
-addPlanBtn.addEventListener(
-    "click",
-    openPlanModal
-);
-
-closePlanModal.addEventListener(
-    "click",
-    closePlanModalFunc
-);
-
-
-/* =====================================================
-   MODAL TASK
-===================================================== */
-
-function addModalTask() {
-
-    const text =
-        taskInput.value.trim();
-
-    if (!text) {
-
-        taskInput.focus();
-
-        return;
-
+      planModal.classList.add("show");
     }
 
-
-    let minutes =
-        Number(taskMinutes.value);
-
-
-    if (!minutes || minutes < 10) {
-
-        minutes = 10;
-
+    function closeModal() {
+      planModal.classList.remove("show");
     }
 
+    addPlanButton.addEventListener("click", openPlanModal);
 
-    minutes =
-        Math.round(minutes / 10) * 10;
+    closePlanModal.addEventListener("click", closeModal);
 
+    planModal.addEventListener("click", event => {
 
-    modalTasks.push({
-
-        text,
-
-        minutes,
-
-        completed: false
+      if (event.target === planModal) {
+        closeModal();
+      }
 
     });
 
 
-    taskInput.value = "";
+    /* =========================
+       TASK EDITOR
+    ========================= */
 
-    taskMinutes.value =
-        "30";
+    function normalizeDuration(value) {
 
+      let number = Number(value);
 
-    renderModalTasks();
+      if (!Number.isFinite(number) || number < 10) {
+        return 10;
+      }
 
-    taskInput.focus();
+      number = Math.round(number / 10) * 10;
 
-}
-
-
-addTaskBtn.addEventListener(
-    "click",
-    addModalTask
-);
-
-
-taskInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            addModalTask();
-
-        }
-
+      return Math.max(10, number);
     }
-);
 
+    function addTaskEditorRow(name = "", duration = 30) {
 
-function renderModalTasks() {
+      const row = document.createElement("div");
 
-    modalTaskList.innerHTML = "";
+      row.className = "editor-row";
 
+      row.innerHTML = `
+        <input
+          type="text"
+          class="input-field task-input"
+          placeholder="할 일을 추가하세요"
+          value="${escapeAttribute(name)}"
+        >
 
-    modalTasks.forEach(
-        (task,index) => {
+        <input
+          type="number"
+          class="input-field duration-input"
+          min="10"
+          step="10"
+          value="${normalizeDuration(duration)}"
+          aria-label="소요 시간"
+        >
 
-            const item =
-                document.createElement("div");
+        <button
+          class="remove-task"
+          type="button"
+          aria-label="할 일 삭제"
+        >
+          ×
+        </button>
+      `;
 
-            item.className =
-                "modal-task";
+      row.querySelector(".remove-task").addEventListener("click", () => {
 
-
-            item.innerHTML = `
-
-                <span class="modal-task-text">
-                    ${escapeHTML(task.text)}
-                </span>
-
-                <span
-                    style="
-                        font-size:11px;
-                        color:#9298a1;
-                    "
-                >
-                    ${task.minutes}분
-                </span>
-
-                <button
-                    class="remove-task"
-                    data-index="${index}"
-                >
-                    ×
-                </button>
-
-            `;
-
-
-            modalTaskList.appendChild(item);
-
+        if (tasksEditor.children.length === 1) {
+          return;
         }
-    );
+
+        row.remove();
+      });
+
+      row.querySelector(".duration-input").addEventListener("blur", event => {
+        event.target.value = normalizeDuration(event.target.value);
+      });
+
+      tasksEditor.appendChild(row);
+    }
+
+    addTaskButton.addEventListener("click", () => {
+      addTaskEditorRow();
+    });
 
 
-    document
-        .querySelectorAll(".remove-task")
-        .forEach(
-            button => {
+    /* =========================
+       SAVE PLAN
+    ========================= */
 
-                button.addEventListener(
-                    "click",
-                    () => {
+    savePlanButton.addEventListener("click", () => {
 
-                        const index =
-                            Number(
-                                button.dataset.index
-                            );
+      const start = normalizeTime(startTime.value);
+      const end = normalizeTime(endTime.value);
 
-                        modalTasks.splice(
-                            index,
-                            1
-                        );
+      if (!start || !end) {
+        alert("시간을 입력해주세요.");
+        return;
+      }
 
-                        renderModalTasks();
+      if (start >= end) {
+        alert("종료 시간은 시작 시간보다 늦어야 합니다.");
+        return;
+      }
 
-                    }
-                );
+      const rows = [...tasksEditor.querySelectorAll(".editor-row")];
 
-            }
-        );
+      const taskData = rows
+        .map(row => {
 
-}
+          const name =
+            row.querySelector(".task-input").value.trim();
 
-
-/* =====================================================
-   SAVE PLAN
-===================================================== */
-
-savePlanBtn.addEventListener(
-    "click",
-    () => {
-
-        const date =
-            planDate.value;
-
-        const name =
-            planName.value.trim();
-
-        const start =
-            planStart.value;
-
-        const end =
-            planEnd.value;
-
-
-        if (!date) {
-
-            alert(
-                "날짜를 선택해주세요."
+          const duration =
+            normalizeDuration(
+              row.querySelector(".duration-input").value
             );
 
-            return;
-
-        }
-
-
-        if (!name) {
-
-            alert(
-                "계획 이름을 입력해주세요."
-            );
-
-            planName.focus();
-
-            return;
-
-        }
-
-
-        if (!start || !end) {
-
-            alert(
-                "시간을 입력해주세요."
-            );
-
-            return;
-
-        }
-
-
-        if (start >= end) {
-
-            alert(
-                "종료 시간은 시작 시간보다 늦어야 합니다."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            modalTasks.length === 0
-        ) {
-
-            alert(
-                "해야 할 일을 하나 이상 추가해주세요."
-            );
-
-            taskInput.focus();
-
-            return;
-
-        }
-
-
-        const newPlan = {
-
-            id:
-                Date.now().toString(),
-
-            date,
-
+          return {
             name,
+            duration,
+            done: false
+          };
 
-            start,
+        })
+        .filter(task => task.name !== "");
 
-            end,
+      if (taskData.length === 0) {
+        alert("할 일을 하나 이상 입력해주세요.");
+        return;
+      }
 
-            tasks:
-                modalTasks.map(
-                    task => ({
-                        ...task
-                    })
-                )
+      const newPlan = {
+        id: Date.now(),
+        date: dateKey(selectedDate),
+        startTime: start,
+        endTime: end,
+        tasks: taskData
+      };
 
-        };
+      plans.push(newPlan);
 
+      savePlans();
 
-        plans.push(newPlan);
+      closeModal();
 
-        savePlans();
-
-        selectedDate =
-            date;
-
-        closePlanModalFunc();
-
-        renderSchedule();
-
-    }
-);
-
-
-/* =====================================================
-   DATE PICKER
-===================================================== */
-
-calendarButton.addEventListener(
-    "click",
-    () => {
-
-        calendarDateInput.value =
-            selectedDate;
-
-        datePickerModal
-            .classList
-            .remove("hidden");
-
-    }
-);
+      renderPlans();
+    });
 
 
-closeDatePicker.addEventListener(
-    "click",
-    () => {
+    /* =========================
+       DELETE
+    ========================= */
 
-        datePickerModal
-            .classList
-            .add("hidden");
+    confirmDelete.addEventListener("click", () => {
 
-    }
-);
+      if (deleteTargetId === null) return;
 
+      plans = plans.filter(plan => plan.id !== deleteTargetId);
 
-calendarDateInput.addEventListener(
-    "change",
-    () => {
+      savePlans();
 
-        if (!calendarDateInput.value)
-            return;
+      deleteTargetId = null;
 
-        selectedDate =
-            calendarDateInput.value;
+      deleteModal.classList.remove("show");
 
-        datePickerModal
-            .classList
-            .add("hidden");
+      renderPlans();
+    });
 
-        renderSchedule();
+    cancelDelete.addEventListener("click", () => {
 
-    }
-);
+      deleteTargetId = null;
 
+      deleteModal.classList.remove("show");
+    });
 
-/* =====================================================
-   DELETE
-===================================================== */
+    deleteModal.addEventListener("click", event => {
 
-confirmDeleteBtn.addEventListener(
-    "click",
-    () => {
-
-        if (!deleteTargetId)
-            return;
-
-
-        plans =
-            plans.filter(
-                plan =>
-                    String(plan.id) !==
-                    String(deleteTargetId)
-            );
-
-
-        savePlans();
-
+      if (event.target === deleteModal) {
         deleteTargetId = null;
+        deleteModal.classList.remove("show");
+      }
 
-        deleteModal
-            .classList
-            .add("hidden");
-
-        renderSchedule();
-
-    }
-);
+    });
 
 
-cancelDeleteBtn.addEventListener(
-    "click",
-    () => {
+    /* =========================
+       STORAGE
+    ========================= */
 
-        deleteTargetId = null;
+    function savePlans() {
 
-        deleteModal
-            .classList
-            .add("hidden");
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(plans)
+      );
 
     }
-);
 
 
-/* =====================================================
-   OUTSIDE MODAL
-===================================================== */
+    /* =========================
+       HELPERS
+    ========================= */
 
-planModal.addEventListener(
-    "click",
-    event => {
+    function normalizeTime(value) {
 
-        if (
-            event.target ===
-            planModal
-        ) {
+      if (!value) return "";
 
-            closePlanModalFunc();
+      const [hour, minute] = value.split(":").map(Number);
 
-        }
+      if (
+        !Number.isFinite(hour) ||
+        !Number.isFinite(minute)
+      ) {
+        return "";
+      }
 
+      const totalMinutes =
+        hour * 60 +
+        Math.round(minute / 10) * 10;
+
+      const normalizedHour =
+        Math.floor(totalMinutes / 60) % 24;
+
+      const normalizedMinute =
+        totalMinutes % 60;
+
+      return `${String(normalizedHour).padStart(2, "0")}:${String(normalizedMinute).padStart(2, "0")}`;
     }
-);
 
+    function escapeHTML(value) {
 
-datePickerModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            datePickerModal
-        ) {
-
-            datePickerModal
-                .classList
-                .add("hidden");
-
-        }
-
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
-);
 
-
-deleteModal.addEventListener(
-    "click",
-    event => {
-
-        if (
-            event.target ===
-            deleteModal
-        ) {
-
-            deleteTargetId = null;
-
-            deleteModal
-                .classList
-                .add("hidden");
-
-        }
-
+    function escapeAttribute(value) {
+      return escapeHTML(value);
     }
-);
 
 
-/* =====================================================
-   INIT
-===================================================== */
+    /* =========================
+       INITIAL
+    ========================= */
 
-renderQuote();
+    renderApp();
 
-</script>
+  </script>
 
 </body>
 </html>
