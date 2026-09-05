@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>flowday</title>
 
   <style>
@@ -14,13 +14,13 @@
 
     :root {
       --navy: #172033;
-      --navy-2: #222d42;
       --text: #1d2430;
-      --muted: #8b929d;
-      --line: #e8eaee;
+      --muted: #858c97;
+      --light-muted: #a4a9b1;
+      --line: #e5e7eb;
       --soft: #f7f8fa;
       --white: #ffffff;
-      --shadow: 0 18px 50px rgba(20, 28, 43, 0.08);
+      --shadow: 0 20px 55px rgba(20, 28, 43, 0.09);
     }
 
     body {
@@ -32,18 +32,7 @@
         "Segoe UI",
         sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(
-          circle at 15% 20%,
-          rgba(225, 229, 237, 0.45),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 80%,
-          rgba(235, 237, 241, 0.55),
-          transparent 32%
-        ),
-        #fbfbfc;
+      background: #fafbfc;
       min-height: 100vh;
     }
 
@@ -53,14 +42,14 @@
     }
 
     button {
-      cursor: pointer;
       border: 0;
       background: none;
+      cursor: pointer;
     }
 
-    /* =========================
+    /* =====================================
        LANDING
-    ========================= */
+    ===================================== */
 
     .landing-page {
       min-height: 100vh;
@@ -68,14 +57,27 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 12% 20%,
+          rgba(225, 229, 237, 0.42),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 88% 78%,
+          rgba(235, 237, 241, 0.52),
+          transparent 32%
+        ),
+        #fbfbfc;
     }
 
     .landing-page::before {
       content: "FLOW";
       position: absolute;
-      left: -55px;
-      bottom: 80px;
-      font-size: clamp(100px, 17vw, 250px);
+      left: -60px;
+      bottom: 60px;
+      font-size: clamp(120px, 18vw, 260px);
       font-weight: 800;
       letter-spacing: -0.08em;
       color: rgba(25, 34, 51, 0.025);
@@ -86,9 +88,9 @@
     .landing-page::after {
       content: "DAY";
       position: absolute;
-      right: -35px;
-      top: 20%;
-      font-size: clamp(100px, 17vw, 250px);
+      right: -40px;
+      top: 19%;
+      font-size: clamp(120px, 18vw, 260px);
       font-weight: 800;
       letter-spacing: -0.08em;
       color: rgba(25, 34, 51, 0.02);
@@ -97,20 +99,18 @@
     }
 
     .landing-header {
-      width: min(1280px, calc(100% - 48px));
+      width: min(1320px, calc(100% - 56px));
       margin: 0 auto;
-      padding: 28px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 30px 0;
       position: relative;
-      z-index: 2;
+      z-index: 5;
     }
 
     .logo {
-      font-size: 22px;
-      font-weight: 750;
-      letter-spacing: -0.05em;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 780;
+      letter-spacing: -0.06em;
     }
 
     .logo .day {
@@ -119,85 +119,92 @@
     }
 
     .landing-main {
-      width: min(1280px, calc(100% - 48px));
+      width: min(1320px, calc(100% - 56px));
       margin: auto;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
+      grid-template-columns: minmax(0, 1fr) minmax(440px, 0.88fr);
       gap: 90px;
       align-items: center;
+      padding: 35px 0 55px;
       position: relative;
-      z-index: 1;
-      padding: 45px 0 65px;
+      z-index: 2;
     }
 
     .hero-copy {
-      padding-left: clamp(0px, 3vw, 50px);
+      padding-left: clamp(0px, 3vw, 55px);
     }
 
     .eyebrow {
-      font-size: 12px;
-      font-weight: 650;
+      font-size: 14px;
+      font-weight: 700;
       letter-spacing: 0.14em;
       color: #969ca6;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .hero-title {
-      font-size: clamp(48px, 6vw, 82px);
-      line-height: 1.04;
-      letter-spacing: -0.065em;
+      font-size: clamp(55px, 6.2vw, 86px);
+      line-height: 1.05;
+      letter-spacing: -0.07em;
       font-weight: 800;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .hero-description {
-      color: #747b86;
-      line-height: 1.8;
-      font-size: 15px;
-      margin-bottom: 36px;
+      color: #737b86;
+      line-height: 1.9;
+      font-size: 17px;
+      margin-bottom: 38px;
+    }
+
+    .start-button,
+    .google-button {
+      width: 285px;
     }
 
     .start-button {
+      height: 60px;
       background: var(--navy);
       color: white;
-      height: 54px;
-      padding: 0 30px;
       border-radius: 14px;
-      font-size: 14px;
-      font-weight: 650;
+      font-size: 16px;
+      font-weight: 680;
+      box-shadow: 0 11px 28px rgba(23, 32, 51, 0.15);
       transition: 0.2s ease;
-      box-shadow: 0 10px 25px rgba(23, 32, 51, 0.14);
     }
 
     .start-button:hover {
       transform: translateY(-2px);
       background: #111827;
-      box-shadow: 0 14px 30px rgba(23, 32, 51, 0.18);
+      box-shadow: 0 15px 32px rgba(23, 32, 51, 0.19);
     }
 
     .google-button {
       margin-top: 12px;
-      height: 48px;
-      padding: 0 20px;
-      border: 1px solid #e4e6ea;
-      background: rgba(255,255,255,0.75);
-      border-radius: 13px;
-      color: #555c67;
-      font-size: 13px;
+      height: 56px;
+      border: 1px solid #e0e3e8;
+      background: rgba(255,255,255,0.82);
+      border-radius: 14px;
+      color: #555d68;
+      font-size: 14px;
+      font-weight: 550;
       transition: 0.2s ease;
     }
 
     .google-button:hover {
       background: white;
-      border-color: #d6d9df;
+      border-color: #d1d5db;
     }
 
     .google-icon {
-      font-weight: 700;
+      font-size: 17px;
+      font-weight: 750;
       margin-right: 8px;
     }
 
-    /* Mockup */
+    /* =====================================
+       LANDING MOCKUP
+    ===================================== */
 
     .mockup-wrap {
       display: flex;
@@ -206,12 +213,12 @@
     }
 
     .mockup {
-      width: min(100%, 470px);
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(220,223,229,0.8);
-      border-radius: 28px;
+      width: min(100%, 550px);
+      background: rgba(255,255,255,0.93);
+      border: 1px solid rgba(220,223,229,0.85);
+      border-radius: 30px;
       box-shadow: var(--shadow);
-      padding: 25px;
+      padding: 31px;
       transform: rotate(1deg);
     }
 
@@ -219,12 +226,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 27px;
     }
 
     .mockup-logo {
-      font-size: 15px;
-      font-weight: 750;
+      font-size: 18px;
+      font-weight: 760;
+      letter-spacing: -0.05em;
     }
 
     .mockup-logo span {
@@ -233,37 +241,39 @@
     }
 
     .mockup-date {
-      font-size: 12px;
-      color: #9aa0aa;
+      font-size: 13px;
+      color: #9299a3;
     }
 
     .mockup-week {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 5px;
-      margin-bottom: 20px;
+      gap: 7px;
+      margin-bottom: 22px;
     }
 
     .mock-day {
-      border: 1px solid #edf0f3;
-      border-radius: 10px;
-      padding: 10px 2px;
+      border: 1px solid #e9ebef;
+      border-radius: 12px;
+      padding: 13px 3px 14px;
       text-align: center;
-      color: #9298a2;
-      font-size: 10px;
+      color: #8c939d;
+      font-size: 12px;
     }
 
     .mock-day strong {
       display: block;
       color: #555d69;
-      margin-top: 4px;
-      font-size: 12px;
+      margin-top: 7px;
+      font-size: 21px;
+      line-height: 1;
+      font-weight: 650;
     }
 
     .mock-day.active {
       background: var(--navy);
-      color: white;
       border-color: var(--navy);
+      color: #d8dce2;
     }
 
     .mock-day.active strong {
@@ -271,80 +281,90 @@
     }
 
     .mock-card {
-      height: 92px;
-      border: 1px solid #eceef2;
-      border-radius: 15px;
-      padding: 17px;
-      margin-top: 10px;
+      height: 110px;
+      border: 1px solid #e8eaee;
+      border-radius: 17px;
+      padding: 20px;
+      margin-top: 11px;
     }
 
     .mock-line {
-      width: 28%;
-      height: 8px;
+      width: 27%;
+      height: 9px;
       background: #dfe2e7;
       border-radius: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .mock-line.long {
-      width: 62%;
-      background: #f0f1f3;
+      width: 64%;
+      background: #eef0f3;
     }
 
-    /* Quote */
+    /* =====================================
+       QUOTE
+    ===================================== */
 
     .quote-area {
-      width: min(640px, calc(100% - 48px));
-      margin: 0 auto 25px;
+      width: min(780px, calc(100% - 80px));
+      margin: 0 auto 28px;
       position: relative;
       text-align: center;
-      min-height: 76px;
-      padding: 8px 42px;
-      z-index: 2;
+      min-height: 92px;
+      padding: 9px 55px;
+      z-index: 3;
     }
 
     .quote-mark {
       position: absolute;
       font-family: Georgia, serif;
-      font-size: 30px;
-      color: #c9cdd3;
+      font-size: 38px;
+      color: #c7cbd1;
       line-height: 1;
     }
 
     .quote-mark.open {
       top: 0;
-      left: 10px;
+      left: 12px;
     }
 
     .quote-mark.close {
-      right: 10px;
+      right: 12px;
       bottom: 0;
     }
 
-    .quote-text {
+    .quote-text-ko {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #737a84;
+      font-style: italic;
+    }
+
+    .quote-text-en {
+      margin-top: 4px;
       font-size: 12px;
-      color: #8b919a;
-      line-height: 1.75;
+      line-height: 1.6;
+      color: #a0a5ad;
       font-style: italic;
     }
 
     .quote-author {
       display: block;
-      margin-top: 5px;
-      color: #adb1b8;
-      font-size: 10px;
+      margin-top: 7px;
+      color: #aeb2b9;
+      font-size: 11px;
       font-style: normal;
     }
 
     .quote-refresh {
       position: absolute;
-      right: -34px;
+      right: 0;
       top: 50%;
       transform: translateY(-50%);
-      width: 27px;
-      height: 27px;
-      color: #9aa0a9;
-      transition: transform 0.25s ease;
+      width: 31px;
+      height: 31px;
+      color: #969ca5;
+      transition: 0.25s ease;
     }
 
     .quote-refresh:hover {
@@ -353,120 +373,119 @@
     }
 
     .quote-refresh svg {
-      width: 17px;
-      height: 17px;
+      width: 19px;
+      height: 19px;
     }
 
     .landing-footer {
       text-align: center;
-      padding: 20px 0 26px;
-      color: #b1b5bc;
-      font-size: 10px;
+      padding: 18px 0 28px;
+      color: #adb2ba;
+      font-size: 11px;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
-    /* =========================
+    /* =====================================
        APP
-    ========================= */
+    ===================================== */
 
     .app-page {
       display: none;
       min-height: 100vh;
       position: relative;
+      overflow: hidden;
+
       background:
         radial-gradient(
           circle at 8% 10%,
-          rgba(226, 230, 237, 0.35),
+          rgba(226, 230, 237, 0.34),
           transparent 25%
         ),
         radial-gradient(
           circle at 92% 90%,
-          rgba(235, 237, 241, 0.42),
+          rgba(235, 237, 241, 0.4),
           transparent 28%
         ),
         #fafbfc;
-      overflow: hidden;
     }
 
     .app-page::before {
       content: "FLOW";
       position: fixed;
-      left: -100px;
+      left: -105px;
       bottom: 30px;
-      font-size: 210px;
-      line-height: 1;
+      font-size: 220px;
       font-weight: 800;
       letter-spacing: -0.08em;
       color: rgba(25, 34, 51, 0.018);
       pointer-events: none;
-      user-select: none;
     }
 
     .app-page::after {
       content: "DAY";
       position: fixed;
-      right: -70px;
-      top: 110px;
-      font-size: 210px;
-      line-height: 1;
+      right: -75px;
+      top: 105px;
+      font-size: 220px;
       font-weight: 800;
       letter-spacing: -0.08em;
       color: rgba(25, 34, 51, 0.016);
       pointer-events: none;
-      user-select: none;
     }
 
     .app-header {
       width: min(1420px, calc(100% - 56px));
+      height: 82px;
       margin: 0 auto;
-      height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: relative;
-      z-index: 5;
+      z-index: 10;
     }
 
+    /* 진짜 90도 쉐브론 */
     .back-button {
+      width: 30px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
       color: var(--navy);
-      font-size: 30px;
-      font-weight: 300;
-      line-height: 1;
-      width: 32px;
-      text-align: left;
     }
 
-    .back-button:hover {
-      transform: translateX(-2px);
+    .back-button svg {
+      width: 22px;
+      height: 27px;
     }
 
     .profile {
-      color: #9a9fa8;
-      font-size: 11px;
+      color: #9298a2;
+      font-size: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
     }
 
     .profile-g {
-      width: 19px;
-      height: 19px;
+      width: 21px;
+      height: 21px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       background: #eceef1;
-      color: #717782;
-      font-size: 9px;
+      color: #707782;
+      font-size: 10px;
       font-weight: 700;
     }
 
     .app-content {
-      width: min(1240px, calc(100% - 56px));
+      width: min(1280px, calc(100% - 56px));
       margin: 0 auto;
-      padding: 30px 0 80px;
+      padding: 32px 0 80px;
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .date-heading {
@@ -474,36 +493,39 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 30px;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .date-title-small {
-      color: #9ba0a9;
-      font-size: 11px;
-      letter-spacing: 0.04em;
-      margin-bottom: 7px;
+      color: #969ca6;
+      font-size: 13px;
+      font-weight: 550;
+      letter-spacing: 0.05em;
+      margin-bottom: 9px;
     }
 
     .date-title-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .date-title {
-      font-size: clamp(30px, 4vw, 45px);
+      font-size: clamp(38px, 4vw, 52px);
       line-height: 1;
-      font-weight: 780;
-      letter-spacing: -0.06em;
+      font-weight: 790;
+      letter-spacing: -0.065em;
     }
 
     .calendar-button {
-      width: 30px;
-      height: 30px;
-      color: #858b95;
+      width: 35px;
+      height: 35px;
+      color: #7e858f;
       display: grid;
       place-items: center;
-      border-radius: 8px;
+      border-radius: 9px;
+      position: relative;
+      overflow: hidden;
       transition: 0.2s ease;
     }
 
@@ -513,97 +535,111 @@
     }
 
     .calendar-button svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    #datePicker {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
+      width: 21px;
+      height: 21px;
       pointer-events: none;
     }
 
+    /*
+      input 자체가 버튼 전체를 덮도록 함.
+      모바일 Safari에서도 직접 터치하면
+      네이티브 날짜 선택창이 열림.
+    */
+    #datePicker {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+
     .week-range {
-      color: #9da2ab;
-      font-size: 11px;
-      margin-bottom: 8px;
+      color: #9298a2;
+      font-size: 13px;
+      margin-bottom: 9px;
+      text-align: right;
     }
 
     .week-controls {
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: flex-end;
+      gap: 7px;
     }
 
     .week-nav {
-      width: 34px;
-      height: 34px;
-      border: 1px solid #e5e7eb;
-      background: rgba(255,255,255,0.75);
-      border-radius: 10px;
-      color: #707783;
-      font-size: 18px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid #e2e5e9;
+      background: rgba(255,255,255,0.8);
+      border-radius: 11px;
+      color: #6e7681;
+      font-size: 22px;
+      line-height: 1;
       transition: 0.2s ease;
     }
 
     .week-nav:hover {
       background: white;
-      border-color: #d9dce1;
+      border-color: #d4d8de;
       color: var(--navy);
     }
 
-    /* Week */
+    /* =====================================
+       WEEK
+    ===================================== */
 
     .week-section {
-      margin-bottom: 34px;
+      margin-bottom: 39px;
     }
 
     .week-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 9px;
+      gap: 11px;
     }
 
     .day-button {
       min-width: 0;
-      height: 82px;
-      border: 1px solid #e6e8ec;
-      background: rgba(255,255,255,0.72);
-      border-radius: 15px;
+      height: 94px;
+      border: 1px solid #e3e6ea;
+      background: rgba(255,255,255,0.76);
+      border-radius: 17px;
       color: #9298a2;
       transition: 0.2s ease;
       position: relative;
     }
 
     .day-button:hover {
-      border-color: #d6dae0;
+      border-color: #d4d8de;
       background: white;
       transform: translateY(-1px);
     }
 
     .day-button .weekday {
       display: block;
-      font-size: 10px;
-      margin-bottom: 9px;
+      font-size: 12px;
+      margin-bottom: 10px;
     }
 
     .day-button .day-number {
       display: block;
-      font-size: 19px;
-      color: #505865;
-      font-weight: 600;
+      font-size: 24px;
+      line-height: 1;
+      color: #4d5663;
+      font-weight: 650;
     }
 
     .day-button.today::after {
       content: "";
-      width: 4px;
-      height: 4px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
-      background: #a5aab2;
+      background: #a2a8b0;
       position: absolute;
-      bottom: 9px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -611,8 +647,8 @@
     .day-button.selected {
       background: var(--navy);
       border-color: var(--navy);
-      color: #cdd2da;
-      box-shadow: 0 9px 20px rgba(23,32,51,0.13);
+      color: #d2d6dd;
+      box-shadow: 0 10px 24px rgba(23,32,51,0.14);
     }
 
     .day-button.selected .day-number {
@@ -623,67 +659,71 @@
       background: white;
     }
 
-    /* Main plans */
+    /* =====================================
+       PLANS
+    ===================================== */
 
     .plans-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 13px;
+      margin-bottom: 15px;
     }
 
     .plans-title {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      font-size: 19px;
+      font-weight: 720;
+      letter-spacing: -0.04em;
     }
 
     .plans-count {
-      color: #a0a5ae;
-      font-size: 10px;
+      color: #999fa8;
+      font-size: 12px;
     }
 
     .plans {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 13px;
+      gap: 15px;
     }
 
     .empty-state {
       grid-column: 1 / -1;
-      min-height: 270px;
-      border: 1px dashed #dfe2e7;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.5);
+      min-height: 320px;
+      border: 1px dashed #dce0e5;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.55);
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #a1a6ae;
+      color: #989ea7;
     }
 
     .empty-state strong {
       display: block;
-      color: #777e88;
-      font-size: 13px;
-      margin-bottom: 8px;
+      color: #747c87;
+      font-size: 17px;
+      margin-bottom: 10px;
+      font-weight: 650;
     }
 
     .empty-state span {
-      font-size: 11px;
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     .plan-card {
-      background: rgba(255,255,255,0.88);
-      border: 1px solid #e8e9ed;
-      border-radius: 19px;
-      padding: 20px;
-      box-shadow: 0 8px 25px rgba(30,38,52,0.035);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 9px 27px rgba(30,38,52,0.04);
       transition: 0.2s ease;
     }
 
     .plan-card:hover {
-      box-shadow: 0 13px 35px rgba(30,38,52,0.07);
+      box-shadow: 0 15px 36px rgba(30,38,52,0.07);
       transform: translateY(-2px);
     }
 
@@ -692,23 +732,32 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 15px;
-      margin-bottom: 17px;
+      margin-bottom: 18px;
+    }
+
+    .plan-name {
+      font-size: 16px;
+      font-weight: 720;
+      color: #3f4753;
+      margin-bottom: 6px;
+      letter-spacing: -0.03em;
     }
 
     .plan-time {
-      font-size: 12px;
-      font-weight: 700;
-      color: #5e6672;
+      font-size: 13px;
+      font-weight: 650;
+      color: #68717d;
     }
 
     .delete-plan {
-      color: #b2b6bd;
-      font-size: 17px;
+      color: #aeb3bb;
+      font-size: 21px;
       line-height: 1;
+      flex-shrink: 0;
     }
 
     .delete-plan:hover {
-      color: #747a84;
+      color: #6e7580;
     }
 
     .task-list {
@@ -719,17 +768,17 @@
 
     .task-row {
       display: grid;
-      grid-template-columns: 19px minmax(0, 1fr) auto;
-      gap: 9px;
+      grid-template-columns: 20px minmax(0, 1fr) auto;
+      gap: 10px;
       align-items: center;
-      padding: 9px 0;
-      border-top: 1px solid #f0f1f3;
+      padding: 10px 0;
+      border-top: 1px solid #eff0f2;
     }
 
     .task-check {
-      width: 17px;
-      height: 17px;
-      border: 1px solid #cfd3d9;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #cdd2d9;
       border-radius: 5px;
       appearance: none;
       cursor: pointer;
@@ -755,13 +804,13 @@
     }
 
     .task-check:checked + .task-name {
-      color: #b0b4bb;
+      color: #aeb3ba;
       text-decoration: line-through;
     }
 
     .task-name {
       min-width: 0;
-      font-size: 12px;
+      font-size: 13px;
       color: #606874;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -769,24 +818,24 @@
     }
 
     .task-duration {
-      color: #a4a9b1;
-      font-size: 10px;
+      color: #9ba1aa;
+      font-size: 11px;
       white-space: nowrap;
     }
 
     .add-plan-button {
       position: fixed;
-      right: 34px;
-      bottom: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 15px;
+      right: 35px;
+      bottom: 31px;
+      width: 55px;
+      height: 55px;
+      border-radius: 16px;
       background: var(--navy);
       color: white;
-      font-size: 27px;
+      font-size: 30px;
       font-weight: 250;
-      box-shadow: 0 12px 30px rgba(23,32,51,0.18);
-      z-index: 10;
+      box-shadow: 0 13px 32px rgba(23,32,51,0.19);
+      z-index: 20;
       transition: 0.2s ease;
     }
 
@@ -796,20 +845,20 @@
 
     .app-footer {
       text-align: center;
-      color: #b2b6bd;
-      font-size: 9px;
-      padding: 35px 0 10px;
+      color: #adb2ba;
+      font-size: 11px;
+      padding: 42px 0 10px;
     }
 
-    /* =========================
+    /* =====================================
        MODAL
-    ========================= */
+    ===================================== */
 
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(17, 24, 39, 0.28);
+      background: rgba(17,24,39,0.28);
       backdrop-filter: blur(7px);
       -webkit-backdrop-filter: blur(7px);
       z-index: 100;
@@ -823,10 +872,10 @@
     }
 
     .modal {
-      width: min(530px, 100%);
+      width: min(550px, 100%);
       background: white;
-      border-radius: 24px;
-      padding: 27px;
+      border-radius: 25px;
+      padding: 30px;
       box-shadow: 0 25px 70px rgba(10,16,28,0.2);
       max-height: 90vh;
       overflow-y: auto;
@@ -836,45 +885,38 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
     .modal-title {
-      font-size: 19px;
+      font-size: 21px;
       font-weight: 750;
       letter-spacing: -0.04em;
     }
 
     .close-modal {
-      font-size: 22px;
+      font-size: 25px;
       color: #a2a7af;
     }
 
     .form-label {
       display: block;
-      font-size: 11px;
-      color: #888f99;
-      margin-bottom: 8px;
-    }
-
-    .time-inputs {
-      display: grid;
-      grid-template-columns: 1fr 20px 1fr;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 22px;
+      font-size: 13px;
+      color: #858c96;
+      margin-bottom: 9px;
+      font-weight: 550;
     }
 
     .input-field {
       width: 100%;
-      height: 46px;
-      border: 1px solid #e3e5e9;
+      height: 48px;
+      border: 1px solid #e1e4e8;
       border-radius: 11px;
-      padding: 0 13px;
+      padding: 0 14px;
       outline: none;
-      color: #4f5661;
+      color: #4e5662;
       background: #fafbfc;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .input-field:focus {
@@ -882,9 +924,22 @@
       background: white;
     }
 
+    .plan-name-input {
+      margin-bottom: 23px;
+    }
+
+    .time-inputs {
+      display: grid;
+      grid-template-columns: 1fr 25px 1fr;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 23px;
+    }
+
     .time-separator {
       text-align: center;
-      color: #a1a6ae;
+      color: #9ca2aa;
+      font-size: 13px;
     }
 
     .tasks-editor {
@@ -896,13 +951,13 @@
 
     .editor-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 100px 30px;
-      gap: 7px;
+      grid-template-columns: minmax(0,1fr) 105px 32px;
+      gap: 8px;
       align-items: center;
     }
 
     .editor-row .input-field {
-      height: 43px;
+      height: 46px;
     }
 
     .duration-input {
@@ -910,70 +965,72 @@
     }
 
     .remove-task {
-      height: 43px;
+      height: 46px;
       color: #a3a8b0;
-      font-size: 18px;
+      font-size: 20px;
     }
 
     .add-task {
       width: 100%;
-      height: 42px;
-      border: 1px dashed #d9dce1;
-      border-radius: 10px;
-      color: #8f959e;
-      font-size: 11px;
+      height: 45px;
+      border: 1px dashed #d7dbe0;
+      border-radius: 11px;
+      color: #888f99;
+      font-size: 12px;
     }
 
     .add-task:hover {
-      border-color: #c6cad1;
-      color: #666d78;
+      border-color: #c5c9d0;
+      color: #646c77;
     }
 
     .save-plan {
       width: 100%;
-      height: 49px;
+      height: 52px;
       background: var(--navy);
       color: white;
-      border-radius: 12px;
-      margin-top: 22px;
-      font-size: 13px;
+      border-radius: 13px;
+      margin-top: 23px;
+      font-size: 14px;
       font-weight: 650;
     }
 
-    /* Delete confirmation */
+    /* =====================================
+       DELETE CONFIRM
+    ===================================== */
 
     .confirm-modal {
-      width: min(360px, 100%);
+      width: min(390px, 100%);
       background: white;
-      border-radius: 21px;
-      padding: 27px;
+      border-radius: 22px;
+      padding: 30px;
       box-shadow: 0 25px 70px rgba(10,16,28,0.2);
       text-align: center;
     }
 
     .confirm-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
     }
 
     .confirm-description {
-      font-size: 11px;
-      color: #9a9fa7;
-      margin-bottom: 22px;
+      font-size: 12px;
+      color: #969ca5;
+      margin-bottom: 23px;
     }
 
     .confirm-buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 9px;
     }
 
     .confirm-buttons button {
-      height: 43px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
+      height: 46px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 620;
     }
 
     .confirm-yes {
@@ -986,14 +1043,15 @@
       color: #656c76;
     }
 
-    /* =========================
+    /* =====================================
        RESPONSIVE
-    ========================= */
+    ===================================== */
 
-    @media (max-width: 900px) {
+    @media (max-width: 1050px) {
+
       .landing-main {
         grid-template-columns: 1fr;
-        gap: 45px;
+        gap: 55px;
         text-align: center;
       }
 
@@ -1005,8 +1063,8 @@
         order: 2;
       }
 
-      .landing-main {
-        padding-top: 35px;
+      .mockup {
+        width: min(620px, 100%);
       }
 
       .plans {
@@ -1015,39 +1073,103 @@
     }
 
     @media (max-width: 650px) {
+
       .landing-header,
       .landing-main {
-        width: min(100% - 32px, 1280px);
+        width: calc(100% - 32px);
       }
 
       .landing-header {
-        padding-top: 21px;
+        padding-top: 23px;
+        padding-bottom: 15px;
+      }
+
+      .logo {
+        font-size: 23px;
       }
 
       .landing-main {
-        padding-top: 35px;
-        padding-bottom: 35px;
+        padding-top: 30px;
+        padding-bottom: 28px;
+        gap: 40px;
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        margin-bottom: 17px;
       }
 
       .hero-title {
-        font-size: clamp(43px, 13vw, 60px);
+        font-size: clamp(45px, 13vw, 61px);
+        margin-bottom: 23px;
       }
 
       .hero-description {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 29px;
+      }
+
+      .start-button,
+      .google-button {
+        width: min(100%, 310px);
+      }
+
+      .start-button {
+        height: 57px;
+        font-size: 15px;
+      }
+
+      .google-button {
+        height: 53px;
         font-size: 13px;
       }
 
       .mockup {
-        padding: 17px;
-        border-radius: 21px;
+        padding: 21px;
+        border-radius: 23px;
+      }
+
+      .mockup-week {
+        gap: 4px;
+      }
+
+      .mock-day {
+        padding: 11px 2px 13px;
+        border-radius: 9px;
+        font-size: 9px;
+      }
+
+      .mock-day strong {
+        font-size: 18px;
+        margin-top: 6px;
+      }
+
+      .mock-card {
+        height: 88px;
+        padding: 16px;
       }
 
       .quote-area {
         width: calc(100% - 65px);
+        min-height: 100px;
+        padding: 7px 25px;
+      }
+
+      .quote-text-ko {
+        font-size: 13px;
+      }
+
+      .quote-text-en {
+        font-size: 10px;
+      }
+
+      .quote-author {
+        font-size: 10px;
       }
 
       .quote-refresh {
-        right: -31px;
+        right: -29px;
       }
 
       .landing-page::before,
@@ -1057,25 +1179,50 @@
         display: none;
       }
 
+      /* APP */
+
       .app-header {
         width: calc(100% - 32px);
-        height: 65px;
+        height: 68px;
       }
 
       .app-content {
         width: calc(100% - 32px);
-        padding-top: 23px;
+        padding-top: 24px;
       }
 
       .date-heading {
         align-items: flex-start;
         flex-direction: column;
-        gap: 15px;
+        gap: 17px;
+        margin-bottom: 25px;
+      }
+
+      .date-title-small {
+        font-size: 12px;
+      }
+
+      .date-title {
+        font-size: 37px;
+      }
+
+      .calendar-button {
+        width: 36px;
+        height: 36px;
+      }
+
+      .week-range {
+        text-align: left;
+        font-size: 12px;
       }
 
       .week-controls {
-        width: 100%;
-        justify-content: space-between;
+        justify-content: flex-start;
+      }
+
+      .week-nav {
+        width: 36px;
+        height: 36px;
       }
 
       .week-grid {
@@ -1083,56 +1230,119 @@
       }
 
       .day-button {
-        height: 70px;
+        height: 78px;
         border-radius: 11px;
       }
 
       .day-button .weekday {
-        font-size: 8px;
-        margin-bottom: 7px;
+        font-size: 9px;
+        margin-bottom: 9px;
       }
 
       .day-button .day-number {
-        font-size: 16px;
+        font-size: 19px;
       }
 
       .day-button.today::after {
-        bottom: 7px;
+        bottom: 8px;
+      }
+
+      .week-section {
+        margin-bottom: 32px;
+      }
+
+      .plans-title {
+        font-size: 17px;
+      }
+
+      .plans-count {
+        font-size: 11px;
+      }
+
+      .empty-state {
+        min-height: 270px;
+        padding: 25px;
+      }
+
+      .empty-state strong {
+        font-size: 15px;
+      }
+
+      .empty-state span {
+        font-size: 12px;
+      }
+
+      .plan-card {
+        padding: 20px;
+      }
+
+      .plan-name {
+        font-size: 15px;
+      }
+
+      .plan-time {
+        font-size: 12px;
+      }
+
+      .task-name {
+        font-size: 12px;
+      }
+
+      .task-duration {
+        font-size: 10px;
       }
 
       .add-plan-button {
-        width: 47px;
-        height: 47px;
+        width: 50px;
+        height: 50px;
         right: 18px;
         bottom: 20px;
-        border-radius: 14px;
+      }
+
+      /* MODAL */
+
+      .modal {
+        padding: 24px;
+        border-radius: 21px;
+      }
+
+      .modal-title {
+        font-size: 19px;
+      }
+
+      .form-label {
+        font-size: 12px;
       }
 
       .editor-row {
-        grid-template-columns: minmax(0, 1fr) 80px 26px;
-      }
-
-      .modal {
-        padding: 22px;
-        border-radius: 20px;
+        grid-template-columns: minmax(0,1fr) 82px 28px;
       }
     }
 
-    @media (max-width: 400px) {
-      .day-button {
-        height: 65px;
-      }
+    @media (max-width: 390px) {
 
-      .day-button .day-number {
-        font-size: 14px;
+      .day-button {
+        height: 72px;
       }
 
       .day-button .weekday {
-        font-size: 7px;
+        font-size: 8px;
+      }
+
+      .day-button .day-number {
+        font-size: 17px;
       }
 
       .date-title {
-        font-size: 29px;
+        font-size: 34px;
+      }
+
+      .mockup {
+        padding: 17px;
+      }
+
+      .mock-day strong {
+        font-size: 16px;
       }
     }
   </style>
@@ -1140,9 +1350,9 @@
 
 <body>
 
-  <!-- =========================
-       LANDING PAGE
-  ========================= -->
+  <!-- =====================================
+       LANDING
+  ===================================== -->
 
   <section class="landing-page" id="landingPage">
 
@@ -1152,10 +1362,14 @@
       </div>
     </header>
 
+
     <main class="landing-main">
 
       <div class="hero-copy">
-        <div class="eyebrow">TODAY'S FLOW</div>
+
+        <div class="eyebrow">
+          TODAY'S FLOW
+        </div>
 
         <h1 class="hero-title">
           오늘 해야 할 일을,<br>
@@ -1177,27 +1391,68 @@
           <span class="google-icon">G</span>
           Google 계정으로 시작하기
         </button>
+
       </div>
 
+
+      <!-- 메인 장식용 플래너 이미지 -->
+
       <div class="mockup-wrap">
+
         <div class="mockup">
 
           <div class="mockup-top">
+
             <div class="mockup-logo">
               flow<span>day</span>
             </div>
-            <div class="mockup-date">오늘의 계획</div>
+
+            <div class="mockup-date">
+              오늘의 계획
+            </div>
+
           </div>
 
+
           <div class="mockup-week">
-            <div class="mock-day">월<strong>31</strong></div>
-            <div class="mock-day">화<strong>1</strong></div>
-            <div class="mock-day">수<strong>2</strong></div>
-            <div class="mock-day active">목<strong>3</strong></div>
-            <div class="mock-day">금<strong>4</strong></div>
-            <div class="mock-day">토<strong>5</strong></div>
-            <div class="mock-day">일<strong>6</strong></div>
+
+            <div class="mock-day">
+              월
+              <strong>31</strong>
+            </div>
+
+            <div class="mock-day">
+              화
+              <strong>1</strong>
+            </div>
+
+            <div class="mock-day">
+              수
+              <strong>2</strong>
+            </div>
+
+            <div class="mock-day active">
+              목
+              <strong>3</strong>
+            </div>
+
+            <div class="mock-day">
+              금
+              <strong>4</strong>
+            </div>
+
+            <div class="mock-day">
+              토
+              <strong>5</strong>
+            </div>
+
+            <div class="mock-day">
+              일
+              <strong>6</strong>
+            </div>
+
           </div>
+
 
           <div class="mock-card">
             <div class="mock-line"></div>
@@ -1210,27 +1465,46 @@
           </div>
 
         </div>
+
       </div>
 
     </main>
 
+
+    <!-- 명언 -->
+
     <div class="quote-area">
+
       <span class="quote-mark open">“</span>
 
-      <div id="quoteText" class="quote-text"></div>
+      <div id="quoteTextKo" class="quote-text-ko"></div>
+
+      <div id="quoteTextEn" class="quote-text-en"></div>
+
       <span id="quoteAuthor" class="quote-author"></span>
 
       <span class="quote-mark close">”</span>
 
-      <button class="quote-refresh" id="quoteRefresh" aria-label="명언 바꾸기">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M20 11a8.1 8.1 0 0 0-14.8-4L3 10" />
-          <path d="M3 5v5h5" />
-          <path d="M4 13a8.1 8.1 0 0 0 14.8 4L21 14" />
-          <path d="M21 19v-5h-5" />
+      <button
+        class="quote-refresh"
+        id="quoteRefresh"
+        aria-label="명언 바꾸기"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+        >
+          <path d="M20 11a8.1 8.1 0 0 0-14.8-4L3 10"></path>
+          <path d="M3 5v5h5"></path>
+          <path d="M4 13a8.1 8.1 0 0 0 14.8 4L21 14"></path>
+          <path d="M21 19v-5h-5"></path>
         </svg>
       </button>
+
     </div>
+
 
     <footer class="landing-footer">
       © 2026 flowday. All rights reserved.
@@ -1239,17 +1513,33 @@
   </section>
 
 
-  <!-- =========================
-       APP PAGE
-  ========================= -->
+  <!-- =====================================
+       APP
+  ===================================== -->
 
   <section class="app-page" id="appPage">
 
     <header class="app-header">
 
-      <button class="back-button" id="backButton" aria-label="뒤로가기">
-        &lt;
+      <!-- SVG 90도 쉐브론 -->
+
+      <button
+        class="back-button"
+        id="backButton"
+        aria-label="뒤로가기"
+      >
+        <svg
+          viewBox="0 0 24 30"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M16 4 L8 15 L16 26"></path>
+        </svg>
       </button>
+
 
       <div class="profile">
         <span class="profile-g">G</span>
@@ -1264,58 +1554,115 @@
       <section class="date-heading">
 
         <div>
-          <div class="date-title-small">TODAY'S FLOW</div>
+
+          <div class="date-title-small">
+            TODAY'S FLOW
+          </div>
 
           <div class="date-title-row">
+
             <h1 class="date-title" id="dateTitle"></h1>
 
-            <button
-              class="calendar-button"
-              id="calendarButton"
-              aria-label="날짜 선택"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                <rect x="3.5" y="5" width="17" height="16" rx="2.5"></rect>
+
+            <div class="calendar-button">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+              >
+                <rect
+                  x="3.5"
+                  y="5"
+                  width="17"
+                  height="16"
+                  rx="2.5"
+                ></rect>
+
                 <path d="M7 3.5v4"></path>
                 <path d="M17 3.5v4"></path>
                 <path d="M3.5 9.5h17"></path>
               </svg>
-            </button>
 
-            <input type="date" id="datePicker">
+
+              <!-- 모바일에서도 직접 터치 가능 -->
+
+              <input
+                type="date"
+                id="datePicker"
+              >
+
+            </div>
+
           </div>
+
         </div>
 
+
         <div>
+
           <div class="week-range" id="weekRange"></div>
 
           <div class="week-controls">
-            <button class="week-nav" id="prevWeek" aria-label="이전 주">
+
+            <button
+              class="week-nav"
+              id="prevWeek"
+              aria-label="이전 주"
+            >
               ‹
             </button>
 
-            <button class="week-nav" id="nextWeek" aria-label="다음 주">
+            <button
+              class="week-nav"
+              id="nextWeek"
+              aria-label="다음 주"
+            >
               ›
             </button>
+
           </div>
+
         </div>
 
       </section>
 
 
+      <!-- 7일 -->
+
       <section class="week-section">
-        <div class="week-grid" id="weekGrid"></div>
+
+        <div
+          class="week-grid"
+          id="weekGrid"
+        ></div>
+
       </section>
 
+
+      <!-- 계획 -->
 
       <section>
 
         <div class="plans-header">
-          <h2 class="plans-title">오늘의 계획</h2>
-          <span class="plans-count" id="plansCount"></span>
+
+          <h2 class="plans-title">
+            오늘의 계획
+          </h2>
+
+          <span
+            class="plans-count"
+            id="plansCount"
+          ></span>
+
         </div>
 
-        <div class="plans" id="plansContainer"></div>
+
+        <div
+          class="plans"
+          id="plansContainer"
+        ></div>
 
       </section>
 
@@ -1327,31 +1674,61 @@
     </main>
 
 
-    <button class="add-plan-button" id="addPlanButton" aria-label="계획 추가">
+    <button
+      class="add-plan-button"
+      id="addPlanButton"
+      aria-label="계획 추가"
+    >
       +
     </button>
 
   </section>
 
 
-  <!-- =========================
-       ADD PLAN MODAL
-  ========================= -->
+  <!-- =====================================
+       PLAN MODAL
+  ===================================== -->
 
-  <div class="modal-backdrop" id="planModal">
+  <div
+    class="modal-backdrop"
+    id="planModal"
+  >
 
     <div class="modal">
 
       <div class="modal-header">
-        <h2 class="modal-title">새 계획</h2>
 
-        <button class="close-modal" id="closePlanModal">
+        <h2 class="modal-title">
+          새 계획
+        </h2>
+
+        <button
+          class="close-modal"
+          id="closePlanModal"
+        >
           ×
         </button>
+
       </div>
 
 
-      <label class="form-label">시간</label>
+      <!-- 계획 이름 복구 -->
+
+      <label class="form-label">
+        계획 이름
+      </label>
+
+      <input
+        type="text"
+        id="planName"
+        class="input-field plan-name-input"
+        placeholder="계획 이름을 입력하세요"
+      >
+
+
+      <label class="form-label">
+        시간
+      </label>
 
       <div class="time-inputs">
 
@@ -1363,7 +1740,9 @@
           step="600"
         >
 
-        <div class="time-separator">~</div>
+        <div class="time-separator">
+          ~
+        </div>
 
         <input
           type="time"
@@ -1376,15 +1755,28 @@
       </div>
 
 
-      <label class="form-label">할 일</label>
+      <label class="form-label">
+        할 일
+      </label>
 
-      <div class="tasks-editor" id="tasksEditor"></div>
+      <div
+        class="tasks-editor"
+        id="tasksEditor"
+      ></div>
 
-      <button class="add-task" id="addTaskButton">
+
+      <button
+        class="add-task"
+        id="addTaskButton"
+      >
         + 할 일 추가
       </button>
 
-      <button class="save-plan" id="savePlanButton">
+
+      <button
+        class="save-plan"
+        id="savePlanButton"
+      >
         계획 추가
       </button>
 
@@ -1393,11 +1785,14 @@
   </div>
 
 
-  <!-- =========================
-       DELETE CONFIRM MODAL
-  ========================= -->
+  <!-- =====================================
+       DELETE MODAL
+  ===================================== -->
 
-  <div class="modal-backdrop" id="deleteModal">
+  <div
+    class="modal-backdrop"
+    id="deleteModal"
+  >
 
     <div class="confirm-modal">
 
@@ -1411,12 +1806,19 @@
 
       <div class="confirm-buttons">
 
-        <!-- 예가 먼저 -->
-        <button class="confirm-yes" id="confirmDelete">
+        <!-- 예 먼저 -->
+
+        <button
+          class="confirm-yes"
+          id="confirmDelete"
+        >
           예
         </button>
 
-        <button class="confirm-no" id="cancelDelete">
+        <button
+          class="confirm-no"
+          id="cancelDelete"
+        >
           아니오
         </button>
 
@@ -1428,496 +1830,919 @@
 
 
   <script>
-    /* =========================
-       DATA
-    ========================= */
+
+    /* =====================================
+       QUOTES
+    ===================================== */
 
     const quotes = [
+
       {
-        text: "천재는 1%의 영감과 99%의 땀으로 이루어진다.",
+        ko: "천재는 1%의 영감과 99%의 땀으로 이루어진다.",
+        en: "Genius is one percent inspiration, ninety-nine percent perspiration.",
         author: "토머스 에디슨"
       },
+
       {
-        text: "교육은 세상을 바꾸는 데 사용할 수 있는 가장 강력한 무기다.",
+        ko: "교육은 세상을 바꾸는 데 사용할 수 있는 가장 강력한 무기다.",
+        en: "Education is the most powerful weapon which you can use to change the world.",
         author: "넬슨 만델라"
       },
+
       {
-        text: "교육의 뿌리는 쓰지만, 그 열매는 달다.",
+        ko: "교육의 뿌리는 쓰지만, 그 열매는 달다.",
+        en: "The roots of education are bitter, but the fruit is sweet.",
         author: "아리스토텔레스"
       },
+
       {
-        text: "배움은 정신을 결코 지치게 하지 않는다.",
+        ko: "배움은 정신을 결코 지치게 하지 않는다.",
+        en: "Learning never exhausts the mind.",
         author: "레오나르도 다 빈치"
       },
+
       {
-        text: "어떤 분야의 전문가도 한때는 초보자였다.",
+        ko: "어떤 분야의 전문가도 한때는 초보자였다.",
+        en: "The expert in anything was once a beginner.",
         author: "헬렌 헤이스"
       },
+
       {
-        text: "읽지 마라, 반박하고 논박하기 위해서도, 무조건 믿기 위해서도 아니다. 숙고하고 판단하기 위해 읽어라.",
+        ko: "읽고, 생각하고, 판단하라.",
+        en: "Read, think, and consider.",
         author: "프랜시스 베이컨"
       },
+
       {
-        text: "교육은 미래로 가는 우리의 여권이다.",
+        ko: "교육은 미래로 가는 우리의 여권이다.",
+        en: "Education is our passport to the future.",
         author: "말콤 엑스"
       },
+
       {
-        text: "오직 하나의 선은 지식이고, 오직 하나의 악은 무지다.",
+        ko: "오직 하나의 선은 지식이고, 오직 하나의 악은 무지다.",
+        en: "The only good is knowledge, and the only evil is ignorance.",
         author: "소크라테스"
       }
+
     ];
+
 
     const STORAGE_KEY = "flowday_plans_v4";
 
-    let plans = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    let plans =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      );
+
 
     let selectedDate = new Date();
+
     selectedDate.setHours(0, 0, 0, 0);
 
-    let weekStart = getMonday(selectedDate);
+
+    let weekStart =
+      getMonday(selectedDate);
+
 
     let deleteTargetId = null;
 
 
-    /* =========================
+    /* =====================================
        ELEMENTS
-    ========================= */
+    ===================================== */
 
-    const landingPage = document.getElementById("landingPage");
-    const appPage = document.getElementById("appPage");
+    const landingPage =
+      document.getElementById("landingPage");
 
-    const startButton = document.getElementById("startButton");
-    const googleButton = document.getElementById("googleButton");
-    const backButton = document.getElementById("backButton");
+    const appPage =
+      document.getElementById("appPage");
 
-    const dateTitle = document.getElementById("dateTitle");
-    const weekRange = document.getElementById("weekRange");
-    const weekGrid = document.getElementById("weekGrid");
+    const startButton =
+      document.getElementById("startButton");
 
-    const prevWeek = document.getElementById("prevWeek");
-    const nextWeek = document.getElementById("nextWeek");
+    const googleButton =
+      document.getElementById("googleButton");
 
-    const calendarButton = document.getElementById("calendarButton");
-    const datePicker = document.getElementById("datePicker");
+    const backButton =
+      document.getElementById("backButton");
 
-    const plansContainer = document.getElementById("plansContainer");
-    const plansCount = document.getElementById("plansCount");
+    const dateTitle =
+      document.getElementById("dateTitle");
 
-    const addPlanButton = document.getElementById("addPlanButton");
+    const weekRange =
+      document.getElementById("weekRange");
 
-    const planModal = document.getElementById("planModal");
-    const closePlanModal = document.getElementById("closePlanModal");
+    const weekGrid =
+      document.getElementById("weekGrid");
 
-    const startTime = document.getElementById("startTime");
-    const endTime = document.getElementById("endTime");
+    const prevWeek =
+      document.getElementById("prevWeek");
 
-    const tasksEditor = document.getElementById("tasksEditor");
-    const addTaskButton = document.getElementById("addTaskButton");
-    const savePlanButton = document.getElementById("savePlanButton");
+    const nextWeek =
+      document.getElementById("nextWeek");
 
-    const deleteModal = document.getElementById("deleteModal");
-    const confirmDelete = document.getElementById("confirmDelete");
-    const cancelDelete = document.getElementById("cancelDelete");
+    const datePicker =
+      document.getElementById("datePicker");
 
-    const quoteText = document.getElementById("quoteText");
-    const quoteAuthor = document.getElementById("quoteAuthor");
-    const quoteRefresh = document.getElementById("quoteRefresh");
+    const plansContainer =
+      document.getElementById("plansContainer");
+
+    const plansCount =
+      document.getElementById("plansCount");
+
+    const addPlanButton =
+      document.getElementById("addPlanButton");
+
+    const planModal =
+      document.getElementById("planModal");
+
+    const closePlanModal =
+      document.getElementById("closePlanModal");
+
+    const planName =
+      document.getElementById("planName");
+
+    const startTime =
+      document.getElementById("startTime");
+
+    const endTime =
+      document.getElementById("endTime");
+
+    const tasksEditor =
+      document.getElementById("tasksEditor");
+
+    const addTaskButton =
+      document.getElementById("addTaskButton");
+
+    const savePlanButton =
+      document.getElementById("savePlanButton");
+
+    const deleteModal =
+      document.getElementById("deleteModal");
+
+    const confirmDelete =
+      document.getElementById("confirmDelete");
+
+    const cancelDelete =
+      document.getElementById("cancelDelete");
+
+    const quoteTextKo =
+      document.getElementById("quoteTextKo");
+
+    const quoteTextEn =
+      document.getElementById("quoteTextEn");
+
+    const quoteAuthor =
+      document.getElementById("quoteAuthor");
+
+    const quoteRefresh =
+      document.getElementById("quoteRefresh");
 
 
-    /* =========================
+    /* =====================================
        LANDING
-    ========================= */
+    ===================================== */
 
     function showApp() {
+
       landingPage.style.display = "none";
       appPage.style.display = "block";
+
       renderApp();
     }
 
+
     function showLanding() {
+
       appPage.style.display = "none";
       landingPage.style.display = "flex";
     }
 
-    startButton.addEventListener("click", showApp);
 
-    /*
-      Google 버튼은 현재 데모 진입 버튼.
-      Firebase 연결 후 이 부분만 실제 Google 로그인으로 교체하면 됨.
-    */
-    googleButton.addEventListener("click", showApp);
-
-    backButton.addEventListener("click", showLanding);
+    startButton.addEventListener(
+      "click",
+      showApp
+    );
 
 
-    /* =========================
+    googleButton.addEventListener(
+      "click",
+      showApp
+    );
+
+
+    backButton.addEventListener(
+      "click",
+      showLanding
+    );
+
+
+    /* =====================================
        QUOTES
-    ========================= */
+    ===================================== */
 
-    let quoteIndex = Math.floor(Math.random() * quotes.length);
+    let quoteIndex =
+      Math.floor(
+        Math.random() * quotes.length
+      );
+
 
     function renderQuote() {
-      const quote = quotes[quoteIndex];
 
-      quoteText.textContent = quote.text;
-      quoteAuthor.textContent = `· ${quote.author}`;
+      const quote =
+        quotes[quoteIndex];
+
+      quoteTextKo.textContent =
+        quote.ko;
+
+      quoteTextEn.textContent =
+        quote.en;
+
+      quoteAuthor.textContent =
+        `· ${quote.author}`;
     }
 
-    quoteRefresh.addEventListener("click", () => {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      renderQuote();
-    });
+
+    quoteRefresh.addEventListener(
+      "click",
+      () => {
+
+        quoteIndex =
+          (quoteIndex + 1) %
+          quotes.length;
+
+        renderQuote();
+
+      }
+    );
+
 
     renderQuote();
 
 
-    /* =========================
-       DATE FUNCTIONS
-    ========================= */
+    /* =====================================
+       DATE
+    ===================================== */
 
     function dateKey(date) {
-      const y = date.getFullYear();
-      const m = String(date.getMonth() + 1).padStart(2, "0");
-      const d = String(date.getDate()).padStart(2, "0");
+
+      const y =
+        date.getFullYear();
+
+      const m =
+        String(
+          date.getMonth() + 1
+        ).padStart(2, "0");
+
+      const d =
+        String(
+          date.getDate()
+        ).padStart(2, "0");
 
       return `${y}-${m}-${d}`;
     }
 
-    function parseDateKey(key) {
-      const [y, m, d] = key.split("-").map(Number);
 
-      const date = new Date(y, m - 1, d);
+    function parseDateKey(key) {
+
+      const [y, m, d] =
+        key.split("-").map(Number);
+
+      const date =
+        new Date(
+          y,
+          m - 1,
+          d
+        );
+
       date.setHours(0, 0, 0, 0);
 
       return date;
     }
 
+
     function getMonday(date) {
-      const d = new Date(date);
+
+      const d =
+        new Date(date);
+
       d.setHours(0, 0, 0, 0);
 
-      const day = d.getDay();
-      const diff = day === 0 ? -6 : 1 - day;
+      const day =
+        d.getDay();
 
-      d.setDate(d.getDate() + diff);
+      const diff =
+        day === 0
+          ? -6
+          : 1 - day;
+
+      d.setDate(
+        d.getDate() + diff
+      );
 
       return d;
     }
+
 
     function addDays(date, amount) {
-      const d = new Date(date);
-      d.setDate(d.getDate() + amount);
+
+      const d =
+        new Date(date);
+
+      d.setDate(
+        d.getDate() + amount
+      );
+
       return d;
     }
 
+
     function isSameDate(a, b) {
-      return dateKey(a) === dateKey(b);
+
+      return (
+        dateKey(a) ===
+        dateKey(b)
+      );
     }
 
+
     function formatDateTitle(date) {
+
       return `${date.getMonth() + 1}월 ${date.getDate()}일`;
     }
 
-    function formatShortDate(date) {
-      return `${date.getMonth() + 1}/${date.getDate()}`;
-    }
 
     function formatWeekRange(start) {
-      const end = addDays(start, 6);
 
-      return `${start.getMonth() + 1}월 ${start.getDate()}일 - ${end.getMonth() + 1}월 ${end.getDate()}일`;
+      const end =
+        addDays(start, 6);
+
+      return (
+        `${start.getMonth() + 1}월 ${start.getDate()}일 - ` +
+        `${end.getMonth() + 1}월 ${end.getDate()}일`
+      );
     }
+
 
     function getWeekday(date) {
-      const names = ["일", "월", "화", "수", "목", "금", "토"];
-      return names[date.getDay()];
+
+      const names = [
+        "일",
+        "월",
+        "화",
+        "수",
+        "목",
+        "금",
+        "토"
+      ];
+
+      return names[
+        date.getDay()
+      ];
     }
 
 
-    /* =========================
-       WEEK RENDER
-    ========================= */
+    /* =====================================
+       WEEK
+    ===================================== */
 
     function renderWeek() {
+
       weekGrid.innerHTML = "";
 
-      weekRange.textContent = formatWeekRange(weekStart);
+      weekRange.textContent =
+        formatWeekRange(weekStart);
 
-      for (let i = 0; i < 7; i++) {
 
-        const date = addDays(weekStart, i);
+      for (
+        let i = 0;
+        i < 7;
+        i++
+      ) {
 
-        const button = document.createElement("button");
-        button.className = "day-button";
+        const date =
+          addDays(
+            weekStart,
+            i
+          );
 
-        if (isSameDate(date, selectedDate)) {
-          button.classList.add("selected");
+
+        const button =
+          document.createElement("button");
+
+        button.className =
+          "day-button";
+
+
+        if (
+          isSameDate(
+            date,
+            selectedDate
+          )
+        ) {
+          button.classList.add(
+            "selected"
+          );
         }
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
 
-        if (isSameDate(date, today)) {
-          button.classList.add("today");
+        const today =
+          new Date();
+
+        today.setHours(
+          0, 0, 0, 0
+        );
+
+
+        if (
+          isSameDate(
+            date,
+            today
+          )
+        ) {
+          button.classList.add(
+            "today"
+          );
         }
+
 
         button.innerHTML = `
-          <span class="weekday">${getWeekday(date)}</span>
-          <span class="day-number">${date.getDate()}</span>
+          <span class="weekday">
+            ${getWeekday(date)}
+          </span>
+
+          <span class="day-number">
+            ${date.getDate()}
+          </span>
         `;
 
-        button.addEventListener("click", () => {
-          selectedDate = new Date(date);
-          renderApp();
-        });
 
-        weekGrid.appendChild(button);
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedDate =
+              new Date(date);
+
+            renderApp();
+
+          }
+        );
+
+
+        weekGrid.appendChild(
+          button
+        );
+
       }
     }
 
 
-    /* =========================
-       PLAN RENDER
-    ========================= */
+    /* =====================================
+       PLANS
+    ===================================== */
 
     function getPlansForDate(date) {
-      const key = dateKey(date);
+
+      const key =
+        dateKey(date);
 
       return plans
-        .filter(plan => plan.date === key)
-        .sort((a, b) => a.startTime.localeCompare(b.startTime));
+        .filter(
+          plan =>
+            plan.date === key
+        )
+        .sort(
+          (a, b) =>
+            a.startTime.localeCompare(
+              b.startTime
+            )
+        );
     }
+
 
     function renderPlans() {
 
-      const todayPlans = getPlansForDate(selectedDate);
+      const todayPlans =
+        getPlansForDate(
+          selectedDate
+        );
 
-      plansContainer.innerHTML = "";
+
+      plansContainer.innerHTML =
+        "";
+
 
       plansCount.textContent =
         todayPlans.length === 0
           ? ""
           : `${todayPlans.length}개의 계획`;
 
-      if (todayPlans.length === 0) {
+
+      if (
+        todayPlans.length === 0
+      ) {
 
         plansContainer.innerHTML = `
           <div class="empty-state">
+
             <div>
-              <strong>오늘의 계획이 없습니다.</strong>
-              <span>오른쪽 아래 + 버튼으로 새로운 계획을 추가해보세요.</span>
+
+              <strong>
+                오늘의 계획이 없습니다.
+              </strong>
+
+              <span>
+                오른쪽 아래 + 버튼으로<br>
+                새로운 계획을 추가해보세요.
+              </span>
+
             </div>
+
           </div>
         `;
 
         return;
       }
 
-      todayPlans.forEach(plan => {
 
-        const card = document.createElement("article");
-        card.className = "plan-card";
+      todayPlans.forEach(
+        plan => {
 
-        const taskHTML = plan.tasks.map((task, index) => {
+          const card =
+            document.createElement(
+              "article"
+            );
 
-          return `
-            <div class="task-row">
-              <input
-                type="checkbox"
-                class="task-check"
-                data-plan-id="${plan.id}"
-                data-task-index="${index}"
-                ${task.done ? "checked" : ""}
+          card.className =
+            "plan-card";
+
+
+          const taskHTML =
+            plan.tasks
+              .map(
+                (task, index) => {
+
+                  return `
+                    <div class="task-row">
+
+                      <input
+                        type="checkbox"
+                        class="task-check"
+                        data-plan-id="${plan.id}"
+                        data-task-index="${index}"
+                        ${task.done ? "checked" : ""}
+                      >
+
+                      <span class="task-name">
+                        ${escapeHTML(task.name)}
+                      </span>
+
+                      <span class="task-duration">
+                        ${task.duration}분
+                      </span>
+
+                    </div>
+                  `;
+
+                }
+              )
+              .join("");
+
+
+          card.innerHTML = `
+
+            <div class="plan-top">
+
+              <div>
+
+                <div class="plan-name">
+                  ${escapeHTML(
+                    plan.name ||
+                    "새 계획"
+                  )}
+                </div>
+
+                <div class="plan-time">
+                  ${plan.startTime} ~ ${plan.endTime}
+                </div>
+
+              </div>
+
+
+              <button
+                class="delete-plan"
+                data-delete-id="${plan.id}"
+                aria-label="계획 삭제"
               >
+                ×
+              </button>
 
-              <span class="task-name">${escapeHTML(task.name)}</span>
-
-              <span class="task-duration">
-                ${task.duration}분
-              </span>
             </div>
+
+
+            <div class="task-list">
+              ${taskHTML}
+            </div>
+
           `;
 
-        }).join("");
 
-        card.innerHTML = `
-          <div class="plan-top">
+          plansContainer.appendChild(
+            card
+          );
 
-            <div class="plan-time">
-              ${plan.startTime} ~ ${plan.endTime}
-            </div>
+        }
+      );
 
-            <button
-              class="delete-plan"
-              data-delete-id="${plan.id}"
-              aria-label="계획 삭제"
-            >
-              ×
-            </button>
 
-          </div>
+      document
+        .querySelectorAll(
+          ".delete-plan"
+        )
+        .forEach(
+          button => {
 
-          <div class="task-list">
-            ${taskHTML}
-          </div>
-        `;
+            button.addEventListener(
+              "click",
+              () => {
 
-        plansContainer.appendChild(card);
-      });
+                deleteTargetId =
+                  Number(
+                    button.dataset
+                      .deleteId
+                  );
 
-      document.querySelectorAll(".delete-plan").forEach(button => {
+                deleteModal.classList.add(
+                  "show"
+                );
 
-        button.addEventListener("click", () => {
+              }
+            );
 
-          deleteTargetId = Number(button.dataset.deleteId);
+          }
+        );
 
-          deleteModal.classList.add("show");
-        });
 
-      });
+      document
+        .querySelectorAll(
+          ".task-check"
+        )
+        .forEach(
+          check => {
 
-      document.querySelectorAll(".task-check").forEach(check => {
+            check.addEventListener(
+              "change",
+              () => {
 
-        check.addEventListener("change", () => {
+                const id =
+                  Number(
+                    check.dataset
+                      .planId
+                  );
 
-          const id = Number(check.dataset.planId);
-          const taskIndex = Number(check.dataset.taskIndex);
+                const taskIndex =
+                  Number(
+                    check.dataset
+                      .taskIndex
+                  );
 
-          const plan = plans.find(item => item.id === id);
 
-          if (!plan) return;
+                const plan =
+                  plans.find(
+                    item =>
+                      item.id === id
+                  );
 
-          plan.tasks[taskIndex].done = check.checked;
 
-          savePlans();
+                if (!plan) return;
 
-        });
 
-      });
+                plan.tasks[
+                  taskIndex
+                ].done =
+                  check.checked;
+
+
+                savePlans();
+
+              }
+            );
+
+          }
+        );
+
     }
 
 
     function renderApp() {
 
-      dateTitle.textContent = formatDateTitle(selectedDate);
+      dateTitle.textContent =
+        formatDateTitle(
+          selectedDate
+        );
 
-      datePicker.value = dateKey(selectedDate);
+
+      datePicker.value =
+        dateKey(
+          selectedDate
+        );
+
 
       renderWeek();
       renderPlans();
     }
 
 
-    /* =========================
+    /* =====================================
        WEEK NAVIGATION
-    ========================= */
+    ===================================== */
 
-    prevWeek.addEventListener("click", () => {
+    prevWeek.addEventListener(
+      "click",
+      () => {
 
-      weekStart = addDays(weekStart, -7);
+        weekStart =
+          addDays(
+            weekStart,
+            -7
+          );
 
-      selectedDate = new Date(weekStart);
+        selectedDate =
+          new Date(weekStart);
 
-      renderApp();
-    });
+        renderApp();
 
-    nextWeek.addEventListener("click", () => {
-
-      weekStart = addDays(weekStart, 7);
-
-      selectedDate = new Date(weekStart);
-
-      renderApp();
-    });
-
-
-    /* =========================
-       DATE PICKER
-    ========================= */
-
-    calendarButton.addEventListener("click", () => {
-
-      try {
-        if (datePicker.showPicker) {
-          datePicker.showPicker();
-        } else {
-          datePicker.click();
-        }
-      } catch {
-        datePicker.click();
       }
-
-    });
-
-    datePicker.addEventListener("change", () => {
-
-      if (!datePicker.value) return;
-
-      selectedDate = parseDateKey(datePicker.value);
-
-      weekStart = getMonday(selectedDate);
-
-      renderApp();
-    });
+    );
 
 
-    /* =========================
-       MODAL
-    ========================= */
+    nextWeek.addEventListener(
+      "click",
+      () => {
+
+        weekStart =
+          addDays(
+            weekStart,
+            7
+          );
+
+        selectedDate =
+          new Date(weekStart);
+
+        renderApp();
+
+      }
+    );
+
+
+    /* =====================================
+       DATE PICKER
+    ===================================== */
+
+    datePicker.addEventListener(
+      "change",
+      () => {
+
+        if (
+          !datePicker.value
+        ) return;
+
+
+        selectedDate =
+          parseDateKey(
+            datePicker.value
+          );
+
+
+        weekStart =
+          getMonday(
+            selectedDate
+          );
+
+
+        renderApp();
+
+      }
+    );
+
+
+    /* =====================================
+       PLAN MODAL
+    ===================================== */
 
     function openPlanModal() {
 
-      startTime.value = "10:00";
-      endTime.value = "11:00";
+      planName.value = "";
 
-      tasksEditor.innerHTML = "";
+      startTime.value =
+        "10:00";
+
+      endTime.value =
+        "11:00";
+
+
+      tasksEditor.innerHTML =
+        "";
+
 
       addTaskEditorRow();
 
-      planModal.classList.add("show");
+
+      planModal.classList.add(
+        "show"
+      );
+
+
+      setTimeout(
+        () => planName.focus(),
+        50
+      );
     }
+
 
     function closeModal() {
-      planModal.classList.remove("show");
+
+      planModal.classList.remove(
+        "show"
+      );
     }
 
-    addPlanButton.addEventListener("click", openPlanModal);
 
-    closePlanModal.addEventListener("click", closeModal);
+    addPlanButton.addEventListener(
+      "click",
+      openPlanModal
+    );
 
-    planModal.addEventListener("click", event => {
 
-      if (event.target === planModal) {
-        closeModal();
+    closePlanModal.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    planModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === planModal
+        ) {
+          closeModal();
+        }
+
       }
+    );
 
-    });
 
-
-    /* =========================
+    /* =====================================
        TASK EDITOR
-    ========================= */
+    ===================================== */
 
     function normalizeDuration(value) {
 
-      let number = Number(value);
+      let number =
+        Number(value);
 
-      if (!Number.isFinite(number) || number < 10) {
+
+      if (
+        !Number.isFinite(number) ||
+        number < 10
+      ) {
         return 10;
       }
 
-      number = Math.round(number / 10) * 10;
 
-      return Math.max(10, number);
+      number =
+        Math.round(
+          number / 10
+        ) * 10;
+
+
+      return Math.max(
+        10,
+        number
+      );
     }
 
-    function addTaskEditorRow(name = "", duration = 30) {
 
-      const row = document.createElement("div");
+    function addTaskEditorRow(
+      name = "",
+      duration = 30
+    ) {
 
-      row.className = "editor-row";
+      const row =
+        document.createElement(
+          "div"
+        );
+
+      row.className =
+        "editor-row";
+
 
       row.innerHTML = `
+
         <input
           type="text"
           class="input-field task-input"
@@ -1941,132 +2766,293 @@
         >
           ×
         </button>
+
       `;
 
-      row.querySelector(".remove-task").addEventListener("click", () => {
 
-        if (tasksEditor.children.length === 1) {
+      row
+        .querySelector(
+          ".remove-task"
+        )
+        .addEventListener(
+          "click",
+          () => {
+
+            if (
+              tasksEditor.children.length ===
+              1
+            ) {
+              return;
+            }
+
+            row.remove();
+
+          }
+        );
+
+
+      row
+        .querySelector(
+          ".duration-input"
+        )
+        .addEventListener(
+          "blur",
+          event => {
+
+            event.target.value =
+              normalizeDuration(
+                event.target.value
+              );
+
+          }
+        );
+
+
+      tasksEditor.appendChild(
+        row
+      );
+    }
+
+
+    addTaskButton.addEventListener(
+      "click",
+      () => {
+
+        addTaskEditorRow();
+
+      }
+    );
+
+
+    /* =====================================
+       SAVE PLAN
+    ===================================== */
+
+    savePlanButton.addEventListener(
+      "click",
+      () => {
+
+        const name =
+          planName.value.trim();
+
+
+        const start =
+          normalizeTime(
+            startTime.value
+          );
+
+
+        const end =
+          normalizeTime(
+            endTime.value
+          );
+
+
+        if (!name) {
+
+          alert(
+            "계획 이름을 입력해주세요."
+          );
+
+          planName.focus();
+
           return;
         }
 
-        row.remove();
-      });
 
-      row.querySelector(".duration-input").addEventListener("blur", event => {
-        event.target.value = normalizeDuration(event.target.value);
-      });
+        if (!start || !end) {
 
-      tasksEditor.appendChild(row);
-    }
+          alert(
+            "시간을 입력해주세요."
+          );
 
-    addTaskButton.addEventListener("click", () => {
-      addTaskEditorRow();
-    });
+          return;
+        }
 
 
-    /* =========================
-       SAVE PLAN
-    ========================= */
+        if (start >= end) {
 
-    savePlanButton.addEventListener("click", () => {
+          alert(
+            "종료 시간은 시작 시간보다 늦어야 합니다."
+          );
 
-      const start = normalizeTime(startTime.value);
-      const end = normalizeTime(endTime.value);
+          return;
+        }
 
-      if (!start || !end) {
-        alert("시간을 입력해주세요.");
-        return;
-      }
 
-      if (start >= end) {
-        alert("종료 시간은 시작 시간보다 늦어야 합니다.");
-        return;
-      }
+        const rows =
+          [
+            ...tasksEditor.querySelectorAll(
+              ".editor-row"
+            )
+          ];
 
-      const rows = [...tasksEditor.querySelectorAll(".editor-row")];
 
-      const taskData = rows
-        .map(row => {
+        const taskData =
+          rows
+            .map(
+              row => {
 
-          const name =
-            row.querySelector(".task-input").value.trim();
+                const taskName =
+                  row
+                    .querySelector(
+                      ".task-input"
+                    )
+                    .value
+                    .trim();
 
-          const duration =
-            normalizeDuration(
-              row.querySelector(".duration-input").value
+
+                const duration =
+                  normalizeDuration(
+                    row
+                      .querySelector(
+                        ".duration-input"
+                      )
+                      .value
+                  );
+
+
+                return {
+                  name: taskName,
+                  duration,
+                  done: false
+                };
+
+              }
+            )
+            .filter(
+              task =>
+                task.name !== ""
             );
 
-          return {
-            name,
-            duration,
-            done: false
-          };
 
-        })
-        .filter(task => task.name !== "");
+        if (
+          taskData.length === 0
+        ) {
 
-      if (taskData.length === 0) {
-        alert("할 일을 하나 이상 입력해주세요.");
-        return;
+          alert(
+            "할 일을 하나 이상 입력해주세요."
+          );
+
+          return;
+        }
+
+
+        const newPlan = {
+
+          id: Date.now(),
+
+          date:
+            dateKey(
+              selectedDate
+            ),
+
+          name,
+
+          startTime: start,
+
+          endTime: end,
+
+          tasks:
+            taskData
+
+        };
+
+
+        plans.push(
+          newPlan
+        );
+
+
+        savePlans();
+
+        closeModal();
+
+        renderPlans();
+
       }
-
-      const newPlan = {
-        id: Date.now(),
-        date: dateKey(selectedDate),
-        startTime: start,
-        endTime: end,
-        tasks: taskData
-      };
-
-      plans.push(newPlan);
-
-      savePlans();
-
-      closeModal();
-
-      renderPlans();
-    });
+    );
 
 
-    /* =========================
+    /* =====================================
        DELETE
-    ========================= */
+    ===================================== */
 
-    confirmDelete.addEventListener("click", () => {
+    confirmDelete.addEventListener(
+      "click",
+      () => {
 
-      if (deleteTargetId === null) return;
+        if (
+          deleteTargetId === null
+        ) return;
 
-      plans = plans.filter(plan => plan.id !== deleteTargetId);
 
-      savePlans();
+        plans =
+          plans.filter(
+            plan =>
+              plan.id !==
+              deleteTargetId
+          );
 
-      deleteTargetId = null;
 
-      deleteModal.classList.remove("show");
+        savePlans();
 
-      renderPlans();
-    });
 
-    cancelDelete.addEventListener("click", () => {
+        deleteTargetId =
+          null;
 
-      deleteTargetId = null;
 
-      deleteModal.classList.remove("show");
-    });
+        deleteModal.classList.remove(
+          "show"
+        );
 
-    deleteModal.addEventListener("click", event => {
 
-      if (event.target === deleteModal) {
-        deleteTargetId = null;
-        deleteModal.classList.remove("show");
+        renderPlans();
+
       }
+    );
 
-    });
+
+    cancelDelete.addEventListener(
+      "click",
+      () => {
+
+        deleteTargetId =
+          null;
+
+        deleteModal.classList.remove(
+          "show"
+        );
+
+      }
+    );
 
 
-    /* =========================
+    deleteModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          deleteModal
+        ) {
+
+          deleteTargetId =
+            null;
+
+          deleteModal.classList.remove(
+            "show"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================
        STORAGE
-    ========================= */
+    ===================================== */
 
     function savePlans() {
 
@@ -2078,15 +3064,23 @@
     }
 
 
-    /* =========================
+    /* =====================================
        HELPERS
-    ========================= */
+    ===================================== */
 
     function normalizeTime(value) {
 
       if (!value) return "";
 
-      const [hour, minute] = value.split(":").map(Number);
+
+      const [
+        hour,
+        minute
+      ] =
+        value
+          .split(":")
+          .map(Number);
+
 
       if (
         !Number.isFinite(hour) ||
@@ -2095,37 +3089,66 @@
         return "";
       }
 
+
       const totalMinutes =
         hour * 60 +
-        Math.round(minute / 10) * 10;
+        Math.round(
+          minute / 10
+        ) * 10;
+
 
       const normalizedHour =
-        Math.floor(totalMinutes / 60) % 24;
+        Math.floor(
+          totalMinutes / 60
+        ) % 24;
+
 
       const normalizedMinute =
         totalMinutes % 60;
 
-      return `${String(normalizedHour).padStart(2, "0")}:${String(normalizedMinute).padStart(2, "0")}`;
+
+      return (
+        `${String(normalizedHour).padStart(2, "0")}:` +
+        `${String(normalizedMinute).padStart(2, "0")}`
+      );
     }
+
 
     function escapeHTML(value) {
 
       return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
     }
 
+
     function escapeAttribute(value) {
+
       return escapeHTML(value);
     }
 
 
-    /* =========================
+    /* =====================================
        INITIAL
-    ========================= */
+    ===================================== */
 
     renderApp();
 
